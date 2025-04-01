@@ -1,10 +1,11 @@
-# Common default
 # ==============================================================================
 
-include make/common.mk
 
 # Variables
 # ==============================================================================
+
+# Make directory containing submakefiles.
+MAKEFILES_DIR := make.d
 
 # Build directory to do all the work.
 BUILD_DIR := build
@@ -27,6 +28,11 @@ GFX_PATH := $(SRC_DIR)/gfx
 # Delete all out-of-tree build and output directories. 
 DISTCLEAN_DIRS += $(BUILD_DIR) $(OUT_DIR)
 
+# Common default
+# ==============================================================================
+
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/common.mk
+
 # Targets
 # ==============================================================================
 
@@ -47,12 +53,11 @@ $(BUILD_DIR):
 # Modules
 # ==============================================================================
 
-include make/drawio.mk
-include make/inkscape.mk
-include make/biblio.mk
-include make/import.mk
-include make/latex.mk
-include make/clean.mk
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/drawio.mk
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/inkscape.mk
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/biblio.mk
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/latex.mk
+include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/clean.mk
 
 # Helper
 # ==============================================================================
