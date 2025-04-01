@@ -1,5 +1,9 @@
+# Sanity checks
 # ==============================================================================
 
+ifndef MKLATEX_PATH
+$(error MKLATEX_PATH must be defined to the path of mklatex submodule!)
+endif
 
 # Variables
 # ==============================================================================
