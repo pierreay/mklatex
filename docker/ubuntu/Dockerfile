@@ -1,0 +1,36 @@
+FROM ubuntu:24.04
+
+# For easy check about being inside Docker or not.
+ENV IS_DOCKER=true
+# Automatically answer yes for APT questions.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Base tools:
+RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip apt-file
+
+# TeX Live distribution:
+RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool
+
+# Drawing tools:
+RUN apt-get update && apt-get install -yq inkscape
+
+# Dependency for our Inkscape exporter script:
+RUN apt-get update && apt-get install -yq jq bc
+
+# Dependencies for our Makefile processing:
+RUN apt-get update && apt-get install -yq ghostscript imagemagick
+
+# DrawIO
+# ==============================================================================
+# See: https://github.com/jgraph/drawio-desktop/issues/146
+
+# Install its X dependency.
+RUN apt-get update && apt-get install -yq curl xvfb nano libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 libgbm1
+
+# Download and extract the official AppImage.
+RUN curl -LJO https://github.com/jgraph/drawio-desktop/releases/download/v24.4.8/drawio-x86_64-24.4.8.AppImage
+RUN chmod +x drawio-x86_64-24.4.8.AppImage && ./drawio-x86_64-24.4.8.AppImage --appimage-extract
+# Deploy it inside our root filesystem.
+RUN cp -r ./squashfs-root /drawio
+RUN chmod -R og+rX  /drawio
+RUN ln -sfT /drawio/drawio /usr/bin/drawio 
