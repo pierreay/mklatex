@@ -1,12 +1,7 @@
-# Sanity checks
-# ==============================================================================
-
-ifndef MKLATEX_PATH
-$(error MKLATEX_PATH must be defined to the path of mklatex submodule!)
-endif
-
 # Variables
 # ==============================================================================
+
+MKLATEX_PATH := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # Make directory containing submakefiles.
 MAKEFILES_DIR := make.d
