@@ -12,7 +12,7 @@ include $(MKLATEX_PATH)/common.mk
 # ==============================================================================
 
 # Default target definition according to GNU guidelines.
-.DEFAULT_GOAL = $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
+.DEFAULT_GOAL = all
 
 # Modules
 # ==============================================================================
@@ -25,7 +25,10 @@ include $(MKLATEX_PATH)/mkrules.d/latex.mk
 # Goals
 # ==============================================================================
 
-.PHONY: clean mrproper distclean help
+.PHONY: all clean mrproper distclean help
+
+all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
+	$(MAKE) -f $(MKLATEX_PATH)/mkgoals.d/latex.mk showerrs
 
 clean:
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Cleaning auxiliary build files..."
@@ -58,6 +61,7 @@ help:
 	@echo -e "Usage: make [target] [variable]"
 	@echo -e ""
 	@echo -e "Targets:"
+	@echo -e "\tall\t\t\t\tBuild main document."
 	@echo -e "\tclean\t\t\t\tDelete auxiliary build files."
 	@echo -e "\tmrproper\t\t\tDelete viewable build files."
 	@echo -e "\tdistclean\t\t\tDelete final files."
