@@ -15,14 +15,11 @@ BUILD_DIR := build
 # Output directory for final file(s).
 OUT_DIR := out
 
-# Utilities script directory.
-UTILS_DIR := utils
+# Binaries and script directory.
+BIN_DIR := bin
 
-# Source files directory.
+# Source files directory (TeX and Graphics).
 SRC_DIR := src
-
-# Git modules directory.
-MOD_DIR := modules
 
 # Graphics path.
 GFX_PATH := $(SRC_DIR)/gfx
