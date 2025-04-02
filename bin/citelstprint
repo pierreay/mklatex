@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 _col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
 
 DIR=""
