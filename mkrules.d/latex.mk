@@ -1,15 +1,18 @@
+include $(MKLATEX_PATH)/common.mk
+
 # Environment
 # ==============================================================================
 
 # Allows sub-makes to find `biber`.
 export PATH = $(shell echo /usr/bin/vendor_perl:$$PATH)
 
-# Add project root full path to be used by LaTeX to search for files.
+# Add current working directory to be used by LaTeX to search for files.
+# It is meant to be the full path of the top-level project root.
 # It works when:
 # - Specifying a `.tex` file to a compiler.
 # - Including subfiles `\include`, `\input`, `\subfile`.
 # - Packages assuming files in current directory (e.g., `makeindex`).
-export TEXINPUTS = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))//:
+export TEXINPUTS = $(shell pwd)//:
 
 # Variables
 # ==============================================================================
@@ -24,7 +27,7 @@ LATEX_SRC_NAME = main
 LATEX_SRC_DIR := $(MKLATEX_SRC_DIR)/tex
 
 # Source files.
-LATEX_SRC_FILES := $(shell find $(LATEX_SRC_DIR) -type f -name '*.tex')
+LATEX_SRC_FILES := $(shell [ -d $(LATEX_SRC_DIR) ] && find $(LATEX_SRC_DIR) -type f -name '*.tex' || true)
 
 # Directory where built files will be stored.
 LATEX_BUILD_DIR := $(LATEX_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
@@ -103,9 +106,6 @@ ifeq ($(shell test -d $(LATEX_BUILD_DIR) && echo true),true)
 	MRPROPER_DIRS  += $(LATEX_BUILD_DIR)
 endif
 
-# Targets
-# ==============================================================================
-
 # Never delete the built PDFs (even if the subsequent target fail).
 .PRECIOUS: $(LATEX_BUILD_DIR)/%.pdf
 
@@ -114,26 +114,8 @@ endif
 .PHONY: .FORCE_RERUN
 .FORCE_RERUN:
 
-# Default target for this module.
-.PHONY: mklatex-latex
-mklatex-latex: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
-	$(MAKE) latex-showerr 
-
-# Clean build files.
-.PHONY: latex-clean
-latex-clean:
-	rm -fr $(LATEX_BUILD_DIR)
-	rm -f $(MKLATEX_BUILD_DIR)/*.pdf
-	rm -f $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
-
-# Show detected errors from log files.
-latex-showerr:
-ifeq ($(shell test -d $(LATEX_BUILD_DIR) && test ! -z $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') && echo true),true)
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Search for errors..."
-	@$(LATEX_GREP_CMD) $(LATEX_RERUNBIB_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
-	@$(LATEX_GREP_CMD) $(LATEX_RERUNGLOSSARY_REGEX) $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
-	@$(LATEX_GREP_CMD) $(LATEX_CHECKERR_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
-endif
+# Targets
+# ==============================================================================
 
 # Create build directory. 
 $(LATEX_BUILD_DIR):
