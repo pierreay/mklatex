@@ -18,11 +18,13 @@ INKSCAPE_BUILD_FILES := $(patsubst $(INKSCAPE_SRC_DIR)/%.svg,$(INKSCAPE_BUILD_DI
 
 # Custom exporter script.
 # TODO: As of now, must be cloned by top-level project as a separate submodule.
-# May be included as a submodule of mklatex directly.
-# INKSCAPE_SCRIPT_PATH := $(MOD_DIR)/inkscape2latex/bin/inkscape2latex
+# - May be included as a submodule of mklatex directly.
+# - Or may be indicated inside usage guide.
+# INKSCAPE_SCRIPT_PATH := inkscape2latex/bin/inkscape2latex
 
 # Custom layers definitions.
-INKSCAPE_LAYERS_PATH := $(UTILS_DIR)/inkscape-layers.json
+# TODO: Must be set by top-level project. Indicate it inside an usage guide.
+# INKSCAPE_LAYERS_PATH := inkscape2latex/examples/inkscape-layers.json
 
 # Never delete the built files (even if the subsequent target fail).
 .PRECIOUS: $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT) $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT)_tex
@@ -65,4 +67,8 @@ $(INKSCAPE_BUILD_DIR):
 $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT): $(INKSCAPE_SRC_DIR)/%.svg | $(INKSCAPE_BUILD_DIR)
 	@[ -z "$(INKSCAPE_SCRIPT_PATH)" ] && \
 		{ echo -e "$(_COL_ERR)[x] mklatex:$(_COL_RES) INKSCAPE_SCRIPT_PATH variable not defined!"; exit 1; } || true
-	$(INKSCAPE_SCRIPT_PATH) -l $(INKSCAPE_LAYERS_PATH) $< $@
+ifndef INKSCAPE_LAYERS_PATH
+		$(INKSCAPE_SCRIPT_PATH) $< $@
+else
+		$(INKSCAPE_SCRIPT_PATH) -l $(INKSCAPE_LAYERS_PATH) $< $@
+endif
