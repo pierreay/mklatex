@@ -1,7 +1,10 @@
 # Variables
 # ==============================================================================
 
-MKLATEX_PATH := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+# If not defined, use the path of top-level Makefile. It allows to use this
+# Makefile with `make -f` without defining this variable. However, it must be
+# defined when used with `include` directive.
+MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # Make directory containing submakefiles.
 MAKEFILES_DIR := make.d
