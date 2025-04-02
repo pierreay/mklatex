@@ -15,7 +15,14 @@ clean:
 	rm -f $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 
 printenv:
+	@echo TEXINPUTS=$(TEXINPUTS)
+	@echo LATEX_SRC_NAME=$(LATEX_SRC_NAME)
+	@echo LATEX_SRC_DIR=$(LATEX_SRC_DIR)
+	@echo LATEX_SRC_FILES=$(LATEX_SRC_FILES)
+	@echo LATEX_BUILD_DIR=$(LATEX_BUILD_DIR)
 	@echo LATEX_OUT_FILE=$(LATEX_OUT_FILE)
+	@echo LATEX_GS_PDFSETTINGS=$(LATEX_GS_PDFSETTINGS)
+	@echo LATEX_GS_ENABLE=$(LATEX_GS_ENABLE)
 
 # Show detected errors from log files.
 showerrs:
