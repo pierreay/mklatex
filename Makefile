@@ -12,10 +12,7 @@ include $(MKLATEX_PATH)/common.mk
 # ==============================================================================
 
 # Default target definition according to GNU guidelines.
-.DEFAULT_GOAL := mklatex
-
-# Default target redirection to a specific module.
-mklatex: mklatex-latex
+.DEFAULT_GOAL = $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 
 # Modules
 # ==============================================================================
