@@ -1,3 +1,5 @@
+include $(MKLATEX_PATH)/common.mk
+
 # Variables
 # ==============================================================================
 
@@ -37,27 +39,6 @@ MRPROPER_DIRS         += $(INKSCAPE_BUILD_DIR)
 
 # Targets
 # ==============================================================================
-
-# Default target for this module. 
-.PHONY: inkscape
-inkscape: inkscape-build
-
-# Export all figures.
-.PHONY: inkscape-build
-inkscape-build: $(INKSCAPE_BUILD_FILES)
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Inkscape build done!"
-
-# Clean exported figures.
-.PHONY: inkscape-clean
-inkscape-clean:
-	rm -fr $(INKSCAPE_BUILD_DIR)
-
-# Print module variables.
-inkscape-debug:
-	@echo INKSCAPE_SRC_DIR=$(INKSCAPE_SRC_DIR)
-	@echo INKSCAPE_SRC_FILES=$(INKSCAPE_SRC_FILES)
-	@echo INKSCAPE_BUILD_DIR=$(INKSCAPE_BUILD_DIR)
-	@echo INKSCAPE_BUILD_FILES=$(INKSCAPE_BUILD_FILES)
 
 # Create build directory.
 $(INKSCAPE_BUILD_DIR):
