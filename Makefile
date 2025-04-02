@@ -24,13 +24,40 @@ include $(MKLATEX_PATH)/mkrules.d/drawio.mk
 include $(MKLATEX_PATH)/mkrules.d/inkscape.mk
 include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/biblio.mk
 include $(MKLATEX_PATH)/mkrules.d/latex.mk
-include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/clean.mk
 
-# Helper
+# Goals
 # ==============================================================================
 
-.PHONY: mklatex-help
-mklatex-help:
+.PHONY: clean mrproper distclean help
+
+clean:
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Cleaning auxiliary build files..."
+ifdef CLEAN_FILES
+	rm -f $(CLEAN_FILES)
+endif
+ifdef CLEAN_DIRS
+	rm -fr $(CLEAN_DIRS)
+endif
+
+mrproper: clean
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Cleaning viewable build files..."
+ifdef MRPROPER_FILES
+	rm -f $(MRPROPER_FILES)
+endif
+ifdef MRPROPER_DIRS
+	rm -fr $(MRPROPER_DIRS)
+endif
+
+distclean: mrproper
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Cleaning final files..."
+ifdef DISTCLEAN_FILES
+	rm -f $(DISTCLEAN_FILES)
+endif
+ifdef MKLATEX_DISTCLEAN_DIRS
+	rm -fr $(MKLATEX_DISTCLEAN_DIRS)
+endif
+
+help:
 	@echo -e "Usage: make [target] [variable]"
 	@echo -e ""
 	@echo -e "Targets:"

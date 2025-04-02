@@ -51,7 +51,7 @@ _MKLATEX_MAKEFILES_DIR := make.d
 # Binaries and script directory.
 _MKLATEX_BIN_DIR := bin
 
-# Rules
+# Targets
 # ==============================================================================
 
 # Create out directory.
