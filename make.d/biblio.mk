@@ -6,6 +6,7 @@ BIB_REMOTE_FP = /TODO
 BIB_REMOTE_FOUND := $(if $(shell test -d $(BIB_REMOTE_FP) && echo true),1,0)
 
 # Directory storing the local bibliographic files.
+# NOTE: Exported for `os.getenv` in `\directlua`.
 export BIB_DIR = $(MKLATEX_SRC_DIR)/bib
 
 # Files located in the external bibliography that we want to import.

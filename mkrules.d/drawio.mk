@@ -10,6 +10,7 @@ DRAWIO_SRC_DIR := $(MKLATEX_GFX_PATH)/drawio
 DRAWIO_SRC_FILES := $(shell [ -d $(DRAWIO_SRC_DIR) ] && find $(DRAWIO_SRC_DIR) -type f -name '*.drawio' || true)
 
 # Directory where exported files will be stored.
+# NOTE: Exported for `os.getenv` in `\directlua`.
 export DRAWIO_BUILD_DIR := $(DRAWIO_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
 
 # Exported files.

@@ -13,6 +13,7 @@ INKSCAPE_SRC_FILES := $(shell [ -d $(INKSCAPE_SRC_DIR) ] && find $(INKSCAPE_SRC_
 INKSCAPE_BUILD_FT := pdf
 
 # Directory where exported files will be stored.
+# NOTE: Exported for `os.getenv` in `\directlua`.
 export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
 
 # Exported files (do not contains layered exportation).
