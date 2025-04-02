@@ -1,8 +1,13 @@
+include $(MKLATEX_PATH)/common.mk
+
+# Variables
+# ==============================================================================
+
 # Directory where source files are stored.
 DRAWIO_SRC_DIR := $(MKLATEX_GFX_PATH)/drawio
 
 # Source files.
-DRAWIO_SRC_FILES := $(shell find $(DRAWIO_SRC_DIR) -type f -name '*.drawio')
+DRAWIO_SRC_FILES := $(shell [ -d $(DRAWIO_SRC_DIR) ] && find $(DRAWIO_SRC_DIR) -type f -name '*.drawio' || true)
 
 # Directory where exported files will be stored.
 export DRAWIO_BUILD_DIR := $(DRAWIO_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
@@ -22,26 +27,8 @@ DRAWIO_SCRIPT_PATH = $(MKLATEX_PATH)/$(_MKLATEX_BIN_DIR)/drawio2pdf
 LATEX_ADDITIONAL_DEPS += $(DRAWIO_BUILD_FILES)
 MRPROPER_DIRS         += $(DRAWIO_BUILD_DIR)
 
-# Default target for this module. 
-.PHONY: drawio
-drawio: drawio-build
-
-# Export all figures.
-.PHONY: drawio-build
-drawio-build: $(DRAWIO_BUILD_FILES)
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) DrawIO build done!"
-
-# Clean exported figures.
-.PHONY: drawio-clean
-drawio-clean:
-	rm -f $(DRAWIO_BUILD_FILES)
-
-# Print module variables.
-drawio-debug:
-	@echo DRAWIO_SRC_DIR=$(DRAWIO_SRC_DIR)
-	@echo DRAWIO_SRC_FILES=$(DRAWIO_SRC_FILES)
-	@echo DRAWIO_BUILD_DIR=$(DRAWIO_BUILD_DIR)
-	@echo DRAWIO_BUILD_FILES=$(DRAWIO_BUILD_FILES)
+# Targets
+# ==============================================================================
 
 # Create build directory.
 $(DRAWIO_BUILD_DIR):
