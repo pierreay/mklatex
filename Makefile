@@ -46,10 +46,10 @@ include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/common.mk
 # ==============================================================================
 
 # Default target definition according to GNU guidelines.
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := mklatex
 
 # Default target redirection to a specific module.
-all: latex
+mklatex: mklatex-latex
 
 # Create out directory.
 $(MKLATEX_OUT_DIR):
@@ -71,8 +71,8 @@ include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/clean.mk
 # Helper
 # ==============================================================================
 
-.PHONY: help
-help:
+.PHONY: mklatex-help
+mklatex-help:
 	@echo -e "Usage: make [target] [variable]"
 	@echo -e ""
 	@echo -e "Targets:"

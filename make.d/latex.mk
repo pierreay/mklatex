@@ -115,8 +115,8 @@ endif
 .FORCE_RERUN:
 
 # Default target for this module.
-.PHONY: latex
-latex: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
+.PHONY: mklatex-latex
+mklatex-latex: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 	$(MAKE) latex-showerr 
 
 # Clean build files.
