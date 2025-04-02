@@ -11,7 +11,7 @@ export DRAWIO_BUILD_DIR := $(DRAWIO_SRC_DIR:$(SRC_DIR)/%=$(BUILD_DIR)/%)
 DRAWIO_BUILD_FILES := $(patsubst $(DRAWIO_SRC_DIR)/%.drawio,$(DRAWIO_BUILD_DIR)/%.pdf,$(DRAWIO_SRC_FILES))
 
 # Custom exporter script.
-DRAWIO_SCRIPT_PATH = $(UTILS_DIR)/drawio.sh
+DRAWIO_SCRIPT_PATH = $(MKLATEX_PATH)/$(BIN_DIR)/drawio2pdf
 
 # Never delete the built PDFs (even if the subsequent target fail).
 .PRECIOUS: $(DRAWIO_BUILD_DIR)/%.pdf
