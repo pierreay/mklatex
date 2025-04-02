@@ -1,0 +1,80 @@
+#!/bin/bash
+
+_col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
+
+# Note: Be sure "drawio --version" output is <= 24.2.5 or >= 24.4.6 because a
+# bug has been introduced in the --crop option, see:
+# https://github.com/jgraph/drawio-desktop/issues/1728
+# Note: Those errors are not a problem:
+# - MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)
+# - glx: failed to create drisw screen
+DRAWIO_BIN=/usr/bin/drawio
+DRAWIO_EXTRA=
+
+# If we are in Docker, we need the following workaround:
+# See:
+# https://github.com/jgraph/drawio-desktop/issues/146#issuecomment-677655303
+if [[ ! -z "${IS_DOCKER}" ]]; then
+    DRAWIO_BIN="xvfb-run -a ${DRAWIO_BIN}"
+    DRAWIO_EXTRA="--disable-gpu --headless --no-sandbox"
+fi
+
+if [[ ! ( -x ${DRAWIO_BIN} ) ]]; then
+    echo "ERROR drawio not found at ${DRAWIO_BIN}, install it?"
+    exit 1
+fi
+
+# Convert *.drawio file(s) into *.drawio.$2 files.
+# $1 is a directory or a filename.
+# $2 is an extension supported by drawio [pdf | png].
+function drawio_to_ext() {
+    echo -e "${_col_ok}[+] $(basename $0):${_col_res} Export .drawio files under $1 to $2..."
+    find "$1" -name "*.drawio" -exec rm -f {}.pdf \; -exec $DRAWIO_BIN --crop -x -o {}."$2" {} $DRAWIO_EXTRA 1>/dev/null 2>&1 \;
+}
+
+function drawio_to_out() {
+    echo -e "${_col_ok}[+] $(basename $0):${_col_res} Exportation: $1 -> $2"
+    $DRAWIO_BIN --crop -x -o "${2}" "${1}" $DRAWIO_EXTRA 1>/dev/null 2>&1
+}
+
+function help() {
+    cat << EOF
+Usage: drawio.sh DIR|FILE EXT|OUTPUT
+
+Convert drawio scheme(s) to the choosen format (png or pdf).
+
+If DIR, convert all *.drawio files located under DIR and output files will be DIR/*.EXT.
+If FILE, convert the input FILE to output file OUTPUT.
+
+Supported formats for EXT:
+- pdf
+- png
+EOF
+}
+
+if [[ $# != 2 ]]; then
+    help
+    exit 1
+fi
+
+if [[ ! -a "$1" ]]; then
+    echo "[*] $1 is neither a valid directory or a valid file!"
+    exit 1
+fi
+
+if [[ -d "${1}" ]]; then
+    ext="${2}"
+elif [[ -f "${1}" ]]; then
+    ext="${2/*./}"
+fi
+
+if [[ "$ext" != "pdf" && "$ext" != "png" ]]; then
+    echo "[*] $ext is not a valid format/extension!"
+    exit 1
+fi
+
+if [[ -d "${1}" ]]; then
+    drawio_to_ext "$1" "${ext}"
+elif [[ -f "${1}" ]]; then
+    drawio_to_out "$1" "$2"
+fi
