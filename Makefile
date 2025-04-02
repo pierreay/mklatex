@@ -22,7 +22,7 @@ mklatex: mklatex-latex
 
 include $(MKLATEX_PATH)/mkrules.d/drawio.mk
 include $(MKLATEX_PATH)/mkrules.d/inkscape.mk
-include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/biblio.mk
+include $(MKLATEX_PATH)/mkrules.d/biblio.mk
 include $(MKLATEX_PATH)/mkrules.d/latex.mk
 
 # Goals
@@ -61,15 +61,9 @@ help:
 	@echo -e "Usage: make [target] [variable]"
 	@echo -e ""
 	@echo -e "Targets:"
-	@echo -e "\tlatex\t\t\t\tBuild the LaTeX final document."
-	@echo -e "\tbiblio\t\t\t\tImport bibliography."
 	@echo -e "\tclean\t\t\t\tDelete auxiliary build files."
 	@echo -e "\tmrproper\t\t\tDelete viewable build files."
 	@echo -e "\tdistclean\t\t\tDelete final files."
-	@echo -e ""
-	@echo -e "Modules:"
-	@echo -e "\tlatex-*\t\t\t\tOperate on LaTeX documents."
-	@echo -e "\tbiblio-*\t\t\tOperate on external bibliography."
 	@echo -e ""
 	@echo -e "Submake:"
 	@echo -e "\tcd docker && make help\t\tOperate inside a Docker container."

@@ -1,6 +1,11 @@
+include $(MKLATEX_PATH)/common.mk
+
+# Variables
+# ==============================================================================
+
 # Path to an external bibliography project.
 # TODO : To fix
-BIB_REMOTE_FP = /TODO
+# BIB_REMOTE_FP = 
 
 # Test to find external bibliography [1 = found ; 0 = not found].
 BIB_REMOTE_FOUND := $(if $(shell test -d $(BIB_REMOTE_FP) && echo true),1,0)
@@ -18,31 +23,8 @@ BIB_FILES = $(BIB_DIR)/references.bib $(BIB_DIR)/references-ownpubs.bib
 LATEX_ADDITIONAL_DEPS += $(BIB_FILES)
 LATEX_ADDITIONAL_REQS += biblio-make
 
-# Default target for this module. 
-.PHONY: biblio
-biblio: biblio-import
-
-# Import all bibliographic files.
-.PHONY: biblio-import
-biblio-import: $(BIB_FILES) | biblio-make
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography importation done!"
-
-# Run make inside external bibliography.
-.PHONY: biblio-make
-biblio-make:
-ifeq ($(BIB_REMOTE_FOUND), 1)
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Ensure external bibliography is up-to-date..."
-	cd $(BIB_REMOTE_FP) && $(MAKE) all
-else
-	$(warning [!] External bibliography not found!)
-endif
-
-# Print module variables.
-biblio-debug:
-	@echo BIB_REMOTE_FP=$(BIB_REMOTE_FP)
-	@echo BIB_REMOTE_FOUND=$(BIB_REMOTE_FOUND)
-	@echo BIB_DIR=$(BIB_DIR)
-	@echo BIB_FILES=$(BIB_FILES)
+# Targets
+# ==============================================================================
 
 # Remote .bib -> Local .bib
 # - cp -p: preserve timestamps.
