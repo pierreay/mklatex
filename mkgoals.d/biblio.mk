@@ -5,14 +5,14 @@ include $(MKLATEX_PATH)/mkrules.d/biblio.mk
 .PHONY: all ugrade printenv help
 
 # Import all bibliographic files.
-all: $(BIB_FILES) | upgrade
+all: upgrade .WAIT $(BIB_FILES)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography importation done!"
 
 # Run make inside external bibliography.
 upgrade:
 ifeq ($(BIB_REMOTE_FOUND), 1)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Ensure external bibliography is up-to-date..."
-	cd $(BIB_REMOTE_FP) && $(MAKE) all
+	cd $(BIB_REMOTE_FP) && $(BIB_REMOTE_CMD)
 else
 	$(warning [!] External bibliography not found!)
 endif

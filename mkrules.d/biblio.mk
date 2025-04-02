@@ -7,6 +7,8 @@ include $(MKLATEX_PATH)/common.mk
 # TODO : To fix
 # BIB_REMOTE_FP = 
 
+BIB_REMOTE_CMD = $(MAKE) all
+
 # Test to find external bibliography [1 = found ; 0 = not found].
 BIB_REMOTE_FOUND := $(if $(shell test -d $(BIB_REMOTE_FP) && echo true),1,0)
 
@@ -21,6 +23,7 @@ BIB_FILES = $(BIB_DIR)/references.bib $(BIB_DIR)/references-ownpubs.bib
 # - Add bibliographic files as dependency for LaTeX document.
 # - Add update of external bibliography as order-only requirement for LaTeX document.
 LATEX_ADDITIONAL_DEPS += $(BIB_FILES)
+# TODO: bilio-make does not exists anymore (upgrade target)
 LATEX_ADDITIONAL_REQS += biblio-make
 
 # Targets
