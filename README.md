@@ -21,3 +21,19 @@ include $(MKLATEX_PATH)/Makefile
 mklatex:
 	$(MAKE) -f modules/mklatex/Makefile all
 ```
+
+# Good practices
+
+## Makefile variables inside LaTeX
+
+Working for variables that are exported inside `Makefile`. For example:
+
+```make
+export MY_MODULE_PATH = /opt/mymodule
+```
+
+Using LuaLaTeX compiler:
+
+```latex
+\newcommand{\myModulePath}{\directlua{tex.write(os.getenv("MY_MODULE_PATH"))}}
+```
