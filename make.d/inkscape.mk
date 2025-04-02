@@ -1,3 +1,6 @@
+# Variables
+# ==============================================================================
+
 # Directory where source files are stored.
 INKSCAPE_SRC_DIR := $(GFX_PATH)/inkscape
 
@@ -14,7 +17,9 @@ export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(SRC_DIR)/%=$(BUILD_DIR)/%)
 INKSCAPE_BUILD_FILES := $(patsubst $(INKSCAPE_SRC_DIR)/%.svg,$(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT),$(INKSCAPE_SRC_FILES))
 
 # Custom exporter script.
-INKSCAPE_SCRIPT_PATH := $(MOD_DIR)/inkscape2latex/bin/inkscape2latex
+# TODO: As of now, must be cloned by top-level project as a separate submodule.
+# May be included as a submodule of mklatex directly.
+# INKSCAPE_SCRIPT_PATH := $(MOD_DIR)/inkscape2latex/bin/inkscape2latex
 
 # Custom layers definitions.
 INKSCAPE_LAYERS_PATH := $(UTILS_DIR)/inkscape-layers.json
@@ -27,6 +32,9 @@ INKSCAPE_LAYERS_PATH := $(UTILS_DIR)/inkscape-layers.json
 # - Add exported figures as viewable build files to clean.
 LATEX_ADDITIONAL_DEPS += $(INKSCAPE_BUILD_FILES)
 MRPROPER_DIRS         += $(INKSCAPE_BUILD_DIR)
+
+# Targets
+# ==============================================================================
 
 # Default target for this module. 
 .PHONY: inkscape
@@ -55,4 +63,6 @@ $(INKSCAPE_BUILD_DIR):
 
 # .svg -> {.pdf, .pdf_tex}
 $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT): $(INKSCAPE_SRC_DIR)/%.svg | $(INKSCAPE_BUILD_DIR)
+	@[ -z "$(INKSCAPE_SCRIPT_PATH)" ] && \
+		{ echo -e "$(_COL_ERR)[x] Makefile:$(_COL_RES) INKSCAPE_SCRIPT_PATH variable not defined!"; exit 1; } || true
 	$(INKSCAPE_SCRIPT_PATH) -l $(INKSCAPE_LAYERS_PATH) $< $@
