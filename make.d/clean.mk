@@ -2,12 +2,12 @@
 # ==============================================================================
 
 # The following variables may be populated by previously loaded modules:
-# - CLEAN_FILES
-# - CLEAN_DIRS
-# - MRPROPER_FILES
-# - MRPROPER_DIRS
-# - DISTCLEAN_FILES
-# - DISTCLEAN_DIRS
+# - $(CLEAN_FILES)
+# - $(CLEAN_DIRS)
+# - $(MRPROPER_FILES)
+# - $(MRPROPER_DIRS)
+# - $(DISTCLEAN_FILES)
+# - $(MKLATEX_DISTCLEAN_DIRS)
 
 # Targets
 # ==============================================================================
@@ -35,6 +35,6 @@ distclean: mrproper
 ifdef DISTCLEAN_FILES
 	rm -f $(DISTCLEAN_FILES)
 endif
-ifdef DISTCLEAN_DIRS
-	rm -fr $(DISTCLEAN_DIRS)
+ifdef MKLATEX_DISTCLEAN_DIRS
+	rm -fr $(MKLATEX_DISTCLEAN_DIRS)
 endif

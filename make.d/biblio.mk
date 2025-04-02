@@ -6,7 +6,7 @@ BIB_REMOTE_FP = /TODO
 BIB_REMOTE_FOUND := $(if $(shell test -d $(BIB_REMOTE_FP) && echo true),1,0)
 
 # Directory storing the local bibliographic files.
-export BIB_DIR = $(SRC_DIR)/bib
+export BIB_DIR = $(MKLATEX_SRC_DIR)/bib
 
 # Files located in the external bibliography that we want to import.
 BIB_FILES = $(BIB_DIR)/references.bib $(BIB_DIR)/references-ownpubs.bib

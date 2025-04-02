@@ -2,7 +2,7 @@
 # ==============================================================================
 
 # Directory where source files are stored.
-INKSCAPE_SRC_DIR := $(GFX_PATH)/inkscape
+INKSCAPE_SRC_DIR := $(MKLATEX_GFX_PATH)/inkscape
 
 # Source files.
 INKSCAPE_SRC_FILES := $(shell find $(INKSCAPE_SRC_DIR) -type f -name '*.svg')
@@ -11,7 +11,7 @@ INKSCAPE_SRC_FILES := $(shell find $(INKSCAPE_SRC_DIR) -type f -name '*.svg')
 INKSCAPE_BUILD_FT := pdf
 
 # Directory where exported files will be stored.
-export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(SRC_DIR)/%=$(BUILD_DIR)/%)
+export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
 
 # Exported files (do not contains layered exportation).
 INKSCAPE_BUILD_FILES := $(patsubst $(INKSCAPE_SRC_DIR)/%.svg,$(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT),$(INKSCAPE_SRC_FILES))

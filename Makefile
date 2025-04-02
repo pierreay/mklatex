@@ -1,36 +1,46 @@
 # Variables
 # ==============================================================================
 
+# All variables are prefixed using:
+# - `MKLATEX` for public variables.
+# - `_MKLATEX` for private variables.
+
+# Publics
+# ------------------------------------------------------------------------------
+
 # If not defined, use the path of top-level Makefile. It allows to use this
 # Makefile with `make -f` without defining this variable. However, it must be
 # defined when used with `include` directive.
 MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
-# Make directory containing submakefiles.
-MAKEFILES_DIR := make.d
-
 # Build directory to do all the work.
-BUILD_DIR := build
+MKLATEX_BUILD_DIR := build
 
 # Output directory for final file(s).
-OUT_DIR := out
+MKLATEX_OUT_DIR := out
 
-# Binaries and script directory.
-BIN_DIR := bin
-
-# Source files directory (TeX and Graphics).
-SRC_DIR := src
+# Source files directory (LaTeX, BibTeX, Graphics, Plots, etc.).
+MKLATEX_SRC_DIR := src
 
 # Graphics path.
-GFX_PATH := $(SRC_DIR)/gfx
+MKLATEX_GFX_PATH := $(MKLATEX_SRC_DIR)/gfx
 
 # Delete all out-of-tree build and output directories. 
-DISTCLEAN_DIRS += $(BUILD_DIR) $(OUT_DIR)
+MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
+
+# Private
+# ------------------------------------------------------------------------------
+
+# Submakefiles to include.
+_MKLATEX_MAKEFILES_DIR := make.d
+
+# Binaries and script directory.
+_MKLATEX_BIN_DIR := bin
 
 # Common default
 # ==============================================================================
 
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/common.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/common.mk
 
 # Targets
 # ==============================================================================
@@ -42,21 +52,21 @@ include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/common.mk
 all: latex
 
 # Create out directory.
-$(OUT_DIR):
-	@mkdir -p $(OUT_DIR)
+$(MKLATEX_OUT_DIR):
+	@mkdir -p $(MKLATEX_OUT_DIR)
 
 # Create build directory.
-$(BUILD_DIR):
-	@mkdir -p $(BUILD_DIR)
+$(MKLATEX_BUILD_DIR):
+	@mkdir -p $(MKLATEX_BUILD_DIR)
 
 # Modules
 # ==============================================================================
 
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/drawio.mk
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/inkscape.mk
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/biblio.mk
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/latex.mk
-include $(MKLATEX_PATH)/$(MAKEFILES_DIR)/clean.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/drawio.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/inkscape.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/biblio.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/latex.mk
+include $(MKLATEX_PATH)/$(_MKLATEX_MAKEFILES_DIR)/clean.mk
 
 # Helper
 # ==============================================================================

@@ -1,17 +1,17 @@
 # Directory where source files are stored.
-DRAWIO_SRC_DIR := $(GFX_PATH)/drawio
+DRAWIO_SRC_DIR := $(MKLATEX_GFX_PATH)/drawio
 
 # Source files.
 DRAWIO_SRC_FILES := $(shell find $(DRAWIO_SRC_DIR) -type f -name '*.drawio')
 
 # Directory where exported files will be stored.
-export DRAWIO_BUILD_DIR := $(DRAWIO_SRC_DIR:$(SRC_DIR)/%=$(BUILD_DIR)/%)
+export DRAWIO_BUILD_DIR := $(DRAWIO_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
 
 # Exported files.
 DRAWIO_BUILD_FILES := $(patsubst $(DRAWIO_SRC_DIR)/%.drawio,$(DRAWIO_BUILD_DIR)/%.pdf,$(DRAWIO_SRC_FILES))
 
 # Custom exporter script.
-DRAWIO_SCRIPT_PATH = $(MKLATEX_PATH)/$(BIN_DIR)/drawio2pdf
+DRAWIO_SCRIPT_PATH = $(MKLATEX_PATH)/$(_MKLATEX_BIN_DIR)/drawio2pdf
 
 # Never delete the built PDFs (even if the subsequent target fail).
 .PRECIOUS: $(DRAWIO_BUILD_DIR)/%.pdf

@@ -21,13 +21,13 @@ export TEXINPUTS = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))//:
 LATEX_SRC_NAME = main
 
 # Directory where source files are stored.
-LATEX_SRC_DIR := $(SRC_DIR)/tex
+LATEX_SRC_DIR := $(MKLATEX_SRC_DIR)/tex
 
 # Source files.
 LATEX_SRC_FILES := $(shell find $(LATEX_SRC_DIR) -type f -name '*.tex')
 
 # Directory where built files will be stored.
-LATEX_BUILD_DIR := $(LATEX_SRC_DIR:$(SRC_DIR)/%=$(BUILD_DIR)/%)
+LATEX_BUILD_DIR := $(LATEX_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
 
 # Filename of our final output file.
 LATEX_OUT_FILE = main.pdf
@@ -116,15 +116,15 @@ endif
 
 # Default target for this module.
 .PHONY: latex
-latex: $(OUT_DIR)/$(LATEX_OUT_FILE)
+latex: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 	$(MAKE) latex-showerr 
 
 # Clean build files.
 .PHONY: latex-clean
 latex-clean:
 	rm -fr $(LATEX_BUILD_DIR)
-	rm -f $(BUILD_DIR)/*.pdf
-	rm -f $(OUT_DIR)/$(LATEX_OUT_FILE)
+	rm -f $(MKLATEX_BUILD_DIR)/*.pdf
+	rm -f $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 
 # Show detected errors from log files.
 latex-showerr:
@@ -167,7 +167,7 @@ $(LATEX_BUILD_DIR)/%.bbl: .FORCE_RERUN
 	$(LATEX_BIB_CC_BIN) --output-directory=$$(dirname $@) $(patsubst %.bbl, %.bcf, $@)
 
 # Post-processing (mainly compression).
-$(BUILD_DIR)/%.pdf: $(LATEX_BUILD_DIR)/%.pdf | $(BUILD_DIR)
+$(MKLATEX_BUILD_DIR)/%.pdf: $(LATEX_BUILD_DIR)/%.pdf | $(MKLATEX_BUILD_DIR)
 ifeq ($(LATEX_GS_ENABLE), false)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Copy $< to $@..."
 	@cp $< $@
@@ -177,5 +177,5 @@ else
 endif
 
 # Special target for our final file.
-$(OUT_DIR)/$(LATEX_OUT_FILE): $(BUILD_DIR)/$(LATEX_SRC_NAME).pdf | $(OUT_DIR)
+$(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE): $(MKLATEX_BUILD_DIR)/$(LATEX_SRC_NAME).pdf | $(MKLATEX_OUT_DIR)
 	cp $< $@
