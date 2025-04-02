@@ -4,25 +4,19 @@ MKLATEX_COMMON_H = true
 # Variables
 # ==============================================================================
 
-# Make
-# ------------------------------------------------------------------------------
-
 # Always use `bash`, not `sh`.
-SHELL = /usr/bin/bash
-# Automatic parallelization of generic rules.
-MAKEFLAGS += -j$(NPROCS)
-
-# Generic
-# ------------------------------------------------------------------------------
+SHELL := /usr/bin/bash
 
 # Colors for "echo -e".
-_COL_OK  = \033[0;32m
-_COL_ERR = \033[1;31m
-_COL_WRN = \033[0;33m
-_COL_RES = \033[0m
+_COL_OK  := \033[0;32m
+_COL_ERR := \033[1;31m
+_COL_WRN := \033[0;33m
+_COL_RES := \033[0m
 
 # Use all available CPU cores when parallelizing.
-NPROCS = $(shell grep -c 'processor' /proc/cpuinfo)
+NPROCS ?= $(shell grep -c 'processor' /proc/cpuinfo)
+# Automatic parallelization of generic rules.
+MAKEFLAGS += -j$(NPROCS)
 
 # mklatex 
 # ------------------------------------------------------------------------------
@@ -51,6 +45,7 @@ MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
 # --- Private
 
 # Submakefiles to include.
+# TODO: To delete?
 _MKLATEX_MAKEFILES_DIR := make.d
 
 # Binaries and script directory.
