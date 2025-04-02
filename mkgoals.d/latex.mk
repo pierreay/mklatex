@@ -2,7 +2,7 @@ include $(MKLATEX_PATH)/common.mk
 include $(MKLATEX_PATH)/mkrules.d/latex.mk
 
 .DEFAULT_GOAL := help
-.PHONY: all clean debug showerrs help
+.PHONY: all clean printenv showerrs help
 
 # Build main document.
 all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
@@ -14,7 +14,7 @@ clean:
 	rm -f $(MKLATEX_BUILD_DIR)/*.pdf
 	rm -f $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 
-debug:
+printenv:
 	@echo LATEX_OUT_FILE=$(LATEX_OUT_FILE)
 
 # Show detected errors from log files.
@@ -32,7 +32,7 @@ help:
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\t\tBuild LaTeX document (without other modules dependencies)."
 	@echo -e "\tclean\t\t\t\tRemove build files."
-	@echo -e "\tdebug\t\t\t\tPrint LaTeX variables."
+	@echo -e "\tprintenv\t\t\tPrint LaTeX variables."
 	@echo -e "\tshowerrs\t\t\tGrep errors from log files."
 	@echo -e ""
 	@echo -e "Targets:"
