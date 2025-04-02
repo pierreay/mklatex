@@ -129,7 +129,7 @@ latex-clean:
 # Show detected errors from log files.
 latex-showerr:
 ifeq ($(shell test -d $(LATEX_BUILD_DIR) && test ! -z $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') && echo true),true)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Search for errors..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Search for errors..."
 	@$(LATEX_GREP_CMD) $(LATEX_RERUNBIB_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
 	@$(LATEX_GREP_CMD) $(LATEX_RERUNGLOSSARY_REGEX) $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
 	@$(LATEX_GREP_CMD) $(LATEX_CHECKERR_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
@@ -141,38 +141,38 @@ $(LATEX_BUILD_DIR):
 
 # %.tex -> %.pdf
 $(LATEX_BUILD_DIR)/%.pdf: $(LATEX_SRC_FILES) $(LATEX_ADDITIONAL_DEPS) | $(LATEX_BUILD_DIR) $(LATEX_ADDITIONAL_REQS)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Build $@..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Build $@..."
 ifndef LATEX_ONESHOT
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Run 1/3:"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 1/3:"
 	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) $(patsubst $(LATEX_BUILD_DIR)/%.pdf, %, $@)
 	@grep -E -q $(LATEX_RERUNGLOSSARY_REGEX) $(patsubst %.pdf, %.log, $@) && $(MAKE) $(patsubst %.pdf, %.glg, $@) || true
 	@grep -E -q $(LATEX_RERUNBIB_REGEX)      $(patsubst %.pdf, %.log, $@) && $(MAKE) $(patsubst %.pdf, %.bbl, $@) || true
 endif
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Run 3/3:"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 3/3:"
 	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_FINAL) $(patsubst $(LATEX_BUILD_DIR)/%.pdf, %, $@)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Build $@ end!"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Build $@ end!"
 
 # Glossary build.
 # Running condition is detected using LaTeX logs by caller, so it has to be forced run.
 $(LATEX_BUILD_DIR)/%.glg: .FORCE_RERUN
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Glossary and index build..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Glossary and index build..."
 	$(LATEX_GLOSSARY_CC_BIN) -d $$(dirname $@) $$(basename $(patsubst $(LATEX_BUILD_DIR)/%.glg, %, $@))
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Run 2/3:"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 2/3:"
 	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) $(patsubst $(LATEX_BUILD_DIR)/%.glg, %, $@)
 
 # Bibliography build.
 # Running condition is detected using LaTeX logs by caller, so it has to be forced run.
 $(LATEX_BUILD_DIR)/%.bbl: .FORCE_RERUN
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Bibliography build..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography build..."
 	$(LATEX_BIB_CC_BIN) --output-directory=$$(dirname $@) $(patsubst %.bbl, %.bcf, $@)
 
 # Post-processing (mainly compression).
 $(BUILD_DIR)/%.pdf: $(LATEX_BUILD_DIR)/%.pdf | $(BUILD_DIR)
 ifeq ($(LATEX_GS_ENABLE), false)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Copy $< to $@..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Copy $< to $@..."
 	@cp $< $@
 else
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Compress $< to $@..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Compress $< to $@..."
 	gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/$(LATEX_GS_PDFSETTINGS) -dDetectDuplicateImages -sOutputFile=$@ $<
 endif
 

@@ -29,7 +29,7 @@ drawio: drawio-build
 # Export all figures.
 .PHONY: drawio-build
 drawio-build: $(DRAWIO_BUILD_FILES)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) DrawIO build done!"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) DrawIO build done!"
 
 # Clean exported figures.
 .PHONY: drawio-clean

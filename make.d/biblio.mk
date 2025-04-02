@@ -24,13 +24,13 @@ biblio: biblio-import
 # Import all bibliographic files.
 .PHONY: biblio-import
 biblio-import: $(BIB_FILES) | biblio-make
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Bibliography importation done!"
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography importation done!"
 
 # Run make inside external bibliography.
 .PHONY: biblio-make
 biblio-make:
 ifeq ($(BIB_REMOTE_FOUND), 1)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Ensure external bibliography is up-to-date..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Ensure external bibliography is up-to-date..."
 	cd $(BIB_REMOTE_FP) && $(MAKE) all
 else
 	$(warning [!] External bibliography not found!)
@@ -48,7 +48,7 @@ biblio-debug:
 # - sed: remove field(s) that we don't want in our project.
 $(BIB_DIR)/%.bib: $(BIB_REMOTE_FP)/%.bib
 ifeq ($(BIB_REMOTE_FOUND), 1)
-	@echo -e "$(_COL_OK)[+] Makefile:$(_COL_RES) Import bibliographic file from external project..."
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Import bibliographic file from external project..."
 	cp -p $< $@
 	sed -i '/note.*=.*{.*}/d' $@
 	sed -i '/abstract.*=.*{.*}/d' $@
