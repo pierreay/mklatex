@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+_col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
+
+if [[ $# -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
+    echo "Usage: $(basename $0) REF1 [REF2...]"
+    echo "Description: Turn a citation list into a Papis request."
+    exit 0
+fi
+
+papisrq=""
+
+for ref in "${@}"; do
+    if [[ -z "${papisrq}" ]]; then
+        papisrq="ref:${ref}"
+    else
+        papisrq+=" OR ref:${ref}"
+    fi
+done
+
+echo ${papisrq}

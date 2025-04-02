@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+_col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
+
+DIR=""
+CITE_REGEX="cite{[a-zA-Z0-9,-_]+}"
+
+if [[ $# -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
+    echo "Usage: $(basename $0) DIR"
+    echo "Description: Search resursively into DIR for all citations of format \cite{XXX} and print the list."
+    exit 0
+fi
+
+DIR="${1}"
+
+if [[ ! -d "${DIR}" ]]; then
+    echo -e "${_col_err}[x] $(basename $0):${_col_res} Not a directory: ${DIR}"
+    exit 1
+fi
+
+# Grep for citation list.
+# 1. Remove the enclosure ("cite{...}").
+# 2. Turn multiple citations into (commas) into multiple words (spaces).
+citelst="$(grep -R -E -o -h "${CITE_REGEX}" "${DIR}" | sed 's/cite//' | tr -d '{' | tr -d '}' | tr ',' ' ')"
+
+# Format citation list.
+# 1. Print multiple words (spaces) on each own line.
+# 2. Sort and delete doublons.
+for cite in ${citelst}; do echo "${cite}"; done | sort | uniq
