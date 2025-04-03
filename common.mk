@@ -47,6 +47,9 @@ MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
 # Binaries and script directory.
 _MKLATEX_BIN_DIR := bin
 
+# Configuration files.
+_MKLATEX_ETC_DIR := etc
+
 # Targets
 # ==============================================================================
 
