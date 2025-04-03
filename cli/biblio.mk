@@ -18,7 +18,7 @@ printenv:
 	@echo BIB_SRC_FILES=$(BIB_SRC_FILES)
 
 printexport:
-	@bash -c "printenv | grep BIB_"
+	@bash -c "printenv | grep BIB_ || true"
 
 help:
 	@echo -e "Usage: mklatex-biblio [target | goal] [variable...]"

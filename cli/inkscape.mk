@@ -24,7 +24,7 @@ printenv:
 	@echo INKSCAPE_BUILD_FILES=$(INKSCAPE_BUILD_FILES)
 
 printexport:
-	@bash -c "printenv | grep INKSCAPE_"
+	@bash -c "printenv | grep INKSCAPE_ || true"
 
 help:
 	@echo -e "Usage: mklatex-inkscape [target | goal] [variable...]"

@@ -62,7 +62,7 @@ printenv:
 	@echo NPROCS=$(NPROCS)
 
 printexport:
-	@bash -c "printenv | grep MKLATEX_"
+	@bash -c "printenv | grep MKLATEX_ || true"
 
 help:
 	@echo -e "Usage: mklatex[-module] [target | goal] [variable...]"

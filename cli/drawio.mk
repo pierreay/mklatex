@@ -24,7 +24,7 @@ printenv:
 	@echo DRAWIO_BUILD_FILES=$(DRAWIO_BUILD_FILES)
 
 printexport:
-	@bash -c "printenv | grep DRAWIO_"
+	@bash -c "printenv | grep DRAWIO_ || true"
 
 help:
 	@echo -e "Usage: mklatex-drawio [target | goal] [variable...]"

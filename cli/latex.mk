@@ -29,7 +29,7 @@ printenv:
 	@echo LATEX_GS_ENABLE=$(LATEX_GS_ENABLE)
 
 printexport:
-	@bash -c "printenv | grep LATEX_"
+	@bash -c "printenv | grep LATEX_ || true"
 
 # Show detected errors from log files.
 showerrs:
