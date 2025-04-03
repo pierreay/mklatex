@@ -1,0 +1,50 @@
+\ProvidesPackage{mklatex}
+
+% Variables
+% ==============================================================================
+
+% Paths
+% ------------------------------------------------------------------------------
+% The following paths are specified from the `TEXINPUTS` variables.
+% It is required to use `luatex` in order to read environment variables exported from the Makefile.
+
+% Inkscape figures path.
+\newcommand{\gfxInkscapePath}{\directlua{tex.write(os.getenv("INKSCAPE_BUILD_DIR"))}}
+
+% Drawio figures path.
+\newcommand{\gfxDrawioPath}{\directlua{tex.write(os.getenv("DRAWIO_BUILD_DIR"))}}
+
+% Bibliography path.
+\newcommand{\bibPath}{\directlua{tex.write(os.getenv("BIB_SRC_DIR"))}}
+
+% LaTeX source files path.
+\newcommand{\texSrcPath}{\directlua{tex.write(os.getenv("LATEX_SRC_DIR"))}}
+
+% Commands
+% ==============================================================================
+
+% Include an Inkscape drawing while adjusting for correct SVG sizing.
+% Note: Use `.95` instead of `.1` otherwise contents is slightly moving if an
+% object is close to the border of the page area.
+% Examples:
+% \inputinkscape{draw.pdf_tex}
+% \inputinkscape[.5]{draw.pdf_tex}
+\newcommand{\inputinkscape}[2][.95]{
+  \def\svgwidth{#1\linewidth}
+  \input{\gfxInkscapePath/#2}
+}
+
+% Requires
+% ==============================================================================
+
+\RequirePackage{subfiles}
+\RequirePackage{graphicx}
+
+% Configuration
+% ==============================================================================
+
+% Set directory of Inkscape drawings for `graphicx` package.
+% Must be set like this for the `\includegraphics` command inside
+% `.[pdf|eps]_tex` files which only include the file basename.
+% Note that it support multiple directories.
+\graphicspath{{\gfxInkscapePath{}}}
