@@ -1,4 +1,4 @@
-include $(MKLATEX_PATH)/common.mk
+include $(MKLATEX_PATH)/lib/common.mk
 
 # Variables
 # ==============================================================================

@@ -2,7 +2,7 @@ ifndef MKLATEX_PATH
 $(error Error: MKLATEX_PATH is not set!)
 endif
 
-include $(MKLATEX_PATH)/common.mk
+include $(MKLATEX_PATH)/lib/common.mk
 include $(MKLATEX_PATH)/lib/latex.mk
 
 .DEFAULT_GOAL := help
