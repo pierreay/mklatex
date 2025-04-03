@@ -29,9 +29,8 @@ LATEX_ADDITIONAL_DEPS += $(BIB_SRC_FILES)
 # ==============================================================================
 
 # bibliography -> .bib
-# - Use `sed` to remove field(s) that we don't want in our project.
-# - Running condition is detected using the build system of the external
-#   bibliography, so it has to be forced run.
+# Running condition is detected using the build system of the external
+# bibliography, so it has to be forced run.
 $(BIB_SRC_DIR)/%.bib: .FORCE_RERUN
 ifdef BIB_REMOTE_PATH
 	@[ ! -d "$(BIB_REMOTE_PATH)" ] && \
@@ -39,6 +38,3 @@ ifdef BIB_REMOTE_PATH
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Ensure up-to-date...: $@"
 	$(BIB_REMOTE_CMD) $$(realpath -m $@)
 endif
-	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Format bibliography...: $@"
-	sed -i '/note.*=.*{.*}/d' $@
-	sed -i '/abstract.*=.*{.*}/d' $@
