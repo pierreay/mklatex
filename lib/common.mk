@@ -31,7 +31,7 @@ MAKEFLAGS += -j$(NPROCS)
 # - `MKLATEX` for public variables.
 # - `_MKLATEX` for private variables.
 
-# --- Publics
+# --- Publics (defining superproject structure)
 
 # Build directory to do all the work.
 MKLATEX_BUILD_DIR := build
@@ -42,13 +42,16 @@ MKLATEX_OUT_DIR := out
 # Source files directory (LaTeX, BibTeX, Graphics, Plots, etc.).
 MKLATEX_SRC_DIR := src
 
+# Configuration files directory.
+MKLATEX_ETC_DIR := etc
+
 # Graphics path.
 MKLATEX_GFX_PATH := $(MKLATEX_SRC_DIR)/gfx
 
 # Delete all out-of-tree build and output directories. 
 MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
 
-# --- Private
+# --- Private (defining mklatex structure)
 
 # Binaries and script directory.
 _MKLATEX_BIN_DIR := bin
