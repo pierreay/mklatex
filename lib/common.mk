@@ -1,6 +1,12 @@
 ifndef MKLATEX_COMMON_H
 MKLATEX_COMMON_H = true
 
+# If defined, include the file defined by MKLATEX_INCLUDE_PRE before anything else.
+# TODO: Use the same strategy at the end with a MKLATEX_INCLUDE_POST variable.
+# However, it will requires code duplication or to modify the architecture of
+# common.mk and main.mk because we don't know which file will be the end.
+-include $(MKLATEX_INCLUDE_PRE)
+
 # Variables
 # ==============================================================================
 
