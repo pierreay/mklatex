@@ -14,7 +14,7 @@ DRAWIO_EXTRA=
 # If we are in Docker, we need the following workaround:
 # See:
 # https://github.com/jgraph/drawio-desktop/issues/146#issuecomment-677655303
-if [[ ! -z "${IS_DOCKER}" ]]; then
+if [[ ! -z "${MKLATEX_DOCKER_GUEST}" ]]; then
     DRAWIO_BIN="xvfb-run -a ${DRAWIO_BIN}"
     DRAWIO_EXTRA="--disable-gpu --headless --no-sandbox"
 fi

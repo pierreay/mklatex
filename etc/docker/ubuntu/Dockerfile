@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 # For easy check about being inside Docker or not.
-ENV IS_DOCKER=true
+ENV MKLATEX_DOCKER_GUEST=true
 # Automatically answer yes for APT questions.
 ENV DEBIAN_FRONTEND=noninteractive
 

@@ -1,7 +1,7 @@
 FROM archlinux:latest
 
 # For easy check about being inside Docker or not.
-ENV IS_DOCKER=true
+ENV MKLATEX_DOCKER_GUEST=true
 
 # Base tools:
 RUN pacman -Syyu --noconfirm base-devel python-pip git
