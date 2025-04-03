@@ -8,8 +8,11 @@ include $(MKLATEX_PATH)/lib/docker.mk
 .DEFAULT_GOAL := help
 .PHONY: all init test shell clean printenv printexport help
 
+# FIX: Disable parallelization since an "old" GNU Make version on Ubuntu 24.04
+# does not handle it well. A better way would be to have a script that run the
+# appropriate command between Arch and Ubuntu.
 all: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_NAME) /bin/bash -c "cd $(DOCKER_GWD) && make all"
+	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
 
 init: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
