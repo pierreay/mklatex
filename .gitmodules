@@ -1,0 +1,3 @@
+[submodule "ext/inkscape2latex"]
+	path = ext/inkscape2latex
+	url = https://github.com/pierreay/inkscape2latex

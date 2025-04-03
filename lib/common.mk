@@ -50,6 +50,9 @@ _MKLATEX_BIN_DIR := bin
 # Configuration files.
 _MKLATEX_ETC_DIR := etc
 
+# External modules.
+_MKLATEX_EXT_DIR := ext
+
 # Targets
 # ==============================================================================
 

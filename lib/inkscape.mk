@@ -20,10 +20,7 @@ export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_B
 INKSCAPE_BUILD_FILES := $(patsubst $(INKSCAPE_SRC_DIR)/%.svg,$(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT),$(INKSCAPE_SRC_FILES))
 
 # Custom exporter script path.
-# TODO: As of now, must be cloned by top-level project as a separate submodule.
-# - May be included as a submodule of mklatex directly.
-# - Or may be indicated inside usage guide.
-# INKSCAPE_SCRIPT_PATH := inkscape2latex/bin/inkscape2latex
+INKSCAPE_SCRIPT_PATH := $(MKLATEX_PATH)/$(_MKLATEX_EXT_DIR)/inkscape2latex/bin/inkscape2latex
 
 # Custom layers definitions.
 # TODO: Must be set by top-level project. Indicate it inside an usage guide.
