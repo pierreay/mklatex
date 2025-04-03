@@ -14,20 +14,21 @@ all: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 init: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
 test: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_NAME) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
+	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
 
 shell: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_NAME) /bin/bash
+	docker run -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash
 
 # Clean our Docker images and containers.
 clean:
-	docker container ls --all | grep $(DOCKER_NAME) | awk '{print $$1}' | xargs -n1 -r docker container rm
-	docker image rm $(DOCKER_NAME):latest
+	docker container ls --all | grep $(DOCKER_TAG) | awk '{print $$1}' | xargs -n1 -r docker container rm
+	docker image rm $(DOCKER_TAG):latest
 	rm $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
 printenv:
 	@echo DOCKER_ETC_PATH=$(DOCKER_ETC_PATH)
 	@echo DOCKER_NAME=$(DOCKER_NAME)
+	@echo DOCKER_TAG=$(DOCKER_TAG)
 	@echo DOCKER_HWD=$(DOCKER_HWD)
 	@echo DOCKER_GWD=$(DOCKER_GWD)
 

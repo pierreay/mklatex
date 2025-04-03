@@ -5,8 +5,10 @@ include $(MKLATEX_PATH)/common.mk
 
 DOCKER_ETC_PATH := $(MKLATEX_PATH)/$(_MKLATEX_ETC_DIR)/docker
 
-# Docker tag and directory that will be use to find the Dockerfile.
+# Docker directory that will be use to find the Dockerfile.
 DOCKER_NAME ?= ubuntu
+# Docker tag that will be use to name the Docker image.
+DOCKER_TAG := mklatex-docker/$(DOCKER_NAME)
 
 # Working directory for the Docker host.
 # Use current working directory, since it is meant to be the full path of the
@@ -19,5 +21,5 @@ DOCKER_GWD = /latex
 # ==============================================================================
 
 $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit:
-	docker build -t $(DOCKER_NAME) $(DOCKER_NAME) 
+	docker build -t $(DOCKER_TAG) $$(dirname $@)
 	touch $@
