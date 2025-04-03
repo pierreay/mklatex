@@ -3,7 +3,7 @@ $(error Error: MKLATEX_PATH is not set!)
 endif
 
 include $(MKLATEX_PATH)/common.mk
-include $(MKLATEX_PATH)/mkrules.d/inkscape.mk
+include $(MKLATEX_PATH)/lib/inkscape.mk
 
 .DEFAULT_GOAL := help
 .PHONY: all clean printenv printexport help

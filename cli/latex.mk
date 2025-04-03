@@ -3,14 +3,14 @@ $(error Error: MKLATEX_PATH is not set!)
 endif
 
 include $(MKLATEX_PATH)/common.mk
-include $(MKLATEX_PATH)/mkrules.d/latex.mk
+include $(MKLATEX_PATH)/lib/latex.mk
 
 .DEFAULT_GOAL := help
 .PHONY: all clean printenv printexport showerrs help
 
 # Build main document.
 all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
-	$(MAKE) -f $(MKLATEX_PATH)/mkgoals.d/latex.mk showerrs
+	$(MAKE) -f $(MKLATEX_PATH)/cli/latex.mk showerrs
 
 # Clean build files.
 clean:

@@ -16,10 +16,10 @@ include $(MKLATEX_PATH)/common.mk
 # Modules
 # ==============================================================================
 
-include $(MKLATEX_PATH)/mkrules.d/drawio.mk
-include $(MKLATEX_PATH)/mkrules.d/inkscape.mk
-include $(MKLATEX_PATH)/mkrules.d/biblio.mk
-include $(MKLATEX_PATH)/mkrules.d/latex.mk
+include $(MKLATEX_PATH)/lib/drawio.mk
+include $(MKLATEX_PATH)/lib/inkscape.mk
+include $(MKLATEX_PATH)/lib/biblio.mk
+include $(MKLATEX_PATH)/lib/latex.mk
 
 # Goals
 # ==============================================================================
@@ -27,7 +27,7 @@ include $(MKLATEX_PATH)/mkrules.d/latex.mk
 .PHONY: all clean mrproper distclean printenv printexport help
 
 all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
-	$(MAKE) -f $(MKLATEX_PATH)/mkgoals.d/latex.mk showerrs
+	$(MAKE) -f $(MKLATEX_PATH)/cli/latex.mk showerrs
 
 clean:
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Cleaning auxiliary build files..."
