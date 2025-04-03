@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Allows it to read from stdin if piped through
+
 set -e
 _col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
 
