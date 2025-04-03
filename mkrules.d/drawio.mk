@@ -1,3 +1,4 @@
+MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))/..
 include $(MKLATEX_PATH)/common.mk
 
 # Variables

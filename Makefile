@@ -1,3 +1,5 @@
+MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
 # Common default
 # ==============================================================================
 
