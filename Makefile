@@ -1,4 +1,6 @@
-MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ifndef MKLATEX_PATH
+$(error Error: MKLATEX_PATH is not set!)
+endif
 
 # Common default
 # ==============================================================================

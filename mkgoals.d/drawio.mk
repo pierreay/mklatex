@@ -1,4 +1,7 @@
-MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))/..
+ifndef MKLATEX_PATH
+$(error Error: MKLATEX_PATH is not set!)
+endif
+
 include $(MKLATEX_PATH)/common.mk
 include $(MKLATEX_PATH)/mkrules.d/drawio.mk
 
