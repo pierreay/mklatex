@@ -11,17 +11,17 @@ _col_ok='\e[0;32m'; _col_err='\e[1;31m'; _col_wrn='\e[0;33m'; _col_res='\e[0m'
 DRAWIO_BIN=/usr/bin/drawio
 DRAWIO_EXTRA=
 
+if [[ ! ( -x ${DRAWIO_BIN} ) ]]; then
+    echo "ERROR drawio not found at ${DRAWIO_BIN}, install it?"
+    exit 1
+fi
+
 # If we are in Docker, we need the following workaround:
 # See:
 # https://github.com/jgraph/drawio-desktop/issues/146#issuecomment-677655303
 if [[ ! -z "${MKLATEX_DOCKER_GUEST}" ]]; then
     DRAWIO_BIN="xvfb-run -a ${DRAWIO_BIN}"
     DRAWIO_EXTRA="--disable-gpu --headless --no-sandbox"
-fi
-
-if [[ ! ( -x ${DRAWIO_BIN} ) ]]; then
-    echo "ERROR drawio not found at ${DRAWIO_BIN}, install it?"
-    exit 1
 fi
 
 # Convert *.drawio file(s) into *.drawio.$2 files.
