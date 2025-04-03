@@ -44,10 +44,6 @@ MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
 
 # --- Private
 
-# Submakefiles to include.
-# TODO: To delete?
-_MKLATEX_MAKEFILES_DIR := make.d
-
 # Binaries and script directory.
 _MKLATEX_BIN_DIR := bin
 
