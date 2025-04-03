@@ -24,10 +24,10 @@ export TEXINPUTS = ${PWD}//:
 LATEX_SRC_NAME = main
 
 # Directory where source files are stored.
-LATEX_SRC_DIR := $(MKLATEX_SRC_DIR)/tex
+export LATEX_SRC_DIR := $(MKLATEX_SRC_DIR)/tex
 
 # Directory where configuration files are stored.
-LATEX_ETC_DIR := $(MKLATEX_ETC_DIR)/tex
+export LATEX_ETC_DIR := $(MKLATEX_ETC_DIR)/tex
 
 # Source files (including configuration files for automatic rebuild).
 LATEX_SRC_FILES := $(shell [ -d $(LATEX_SRC_DIR) ] && find $(LATEX_SRC_DIR) -type f -name '*.tex' || true)
