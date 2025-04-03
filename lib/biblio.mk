@@ -37,7 +37,7 @@ ifdef BIB_REMOTE_PATH
 	@[ ! -d "$(BIB_REMOTE_PATH)" ] && \
 		{ echo -e "$(_COL_ERR)[x] mklatex:$(_COL_RES) Not an existing directory: $(BIB_REMOTE_PATH)"; exit 1; } || true
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Ensure up-to-date...: $@"
-	$(BIB_REMOTE_CMD) $$(realpath $@)
+	$(BIB_REMOTE_CMD) $$(realpath -m $@)
 endif
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Format bibliography...: $@"
 	sed -i '/note.*=.*{.*}/d' $@
