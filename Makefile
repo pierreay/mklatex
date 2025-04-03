@@ -3,11 +3,6 @@ MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 # Common default
 # ==============================================================================
 
-# If not defined, use the path of the main mklatex Makefile. It allows to use
-# this Makefile with `make -f` without defining this variable. However, it must
-# be defined when used with `include` directive.
-MKLATEX_PATH ?= $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-
 include $(MKLATEX_PATH)/common.mk
 
 # Targets
