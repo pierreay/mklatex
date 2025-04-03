@@ -34,11 +34,23 @@
   \input{\gfxInkscapePath/#2}
 }
 
+% Options
+% ==============================================================================
+
+\PassOptionsToPackage{
+  % Use Biber as backend instead of Bibtex.
+  backend=biber,
+}{biblatex}
+
 % Requires
 % ==============================================================================
 
 \RequirePackage{subfiles}
 \RequirePackage{graphicx}
+\RequirePackage{biblatex}
+
+% Required by Inkscape exported files.
+\RequirePackage[dvipsnames]{xcolor}
 
 % Configuration
 % ==============================================================================
@@ -48,3 +60,5 @@
 % `.[pdf|eps]_tex` files which only include the file basename.
 % Note that it support multiple directories.
 \graphicspath{{\gfxInkscapePath{}}}
+
+\addbibresource{\bibPath/references.bib}

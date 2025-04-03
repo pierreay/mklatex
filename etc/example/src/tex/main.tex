@@ -1,0 +1,21 @@
+\documentclass[paper=a4,fontsize=11pt]{article}
+
+% Load `mklatex` configuration.
+\newcommand{\texEtcPath}{\directlua{tex.write(os.getenv("LATEX_ETC_DIR"))}}
+\usepackage{\texEtcPath/mklatex}
+
+\begin{document}
+
+\title{MKLaTeX Example}
+\author{Pierre Ayoub}
+
+\maketitle
+
+Example file of MkLaTeX.
+
+\subfile{\texSrcPath/sec1.tex}
+\subfile{\texSrcPath/sec2.tex}
+
+\printbibliography{}
+
+\end{document}
