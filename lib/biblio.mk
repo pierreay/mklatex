@@ -17,8 +17,13 @@ export BIB_SRC_DIR = $(MKLATEX_SRC_DIR)/bib
 BIB_SRC_FILES ?= $(shell [ -d $(BIB_SRC_DIR) ] && find $(BIB_SRC_DIR) -type f -name '*.bib' || true)
 
 # Interface with other modules:
-# - Add local bibliography files as dependency for LaTeX document.
-LATEX_ADDITIONAL_DEPS += $(BIB_SRC_FILES)
+# - Add local bibliography files (imported) as order-only dependency for LaTeX document.
+# TODO: 
+# Order-only -> triggering importation will not trigger document rebuild.
+# Normal -> triggering importation will always trigger document rebuild.
+# Should find a way to always trigger importation but always rebuild if
+# importation has been effectively done.
+LATEX_ADDITIONAL_REQS += $(BIB_SRC_FILES)
 
 # Empty target used in some prerequisite to force a target to re-run.
 # Useful force pattern rules that cannot be set directly into `.PHONY`.
