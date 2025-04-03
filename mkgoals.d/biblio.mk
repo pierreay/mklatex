@@ -8,14 +8,14 @@ include $(MKLATEX_PATH)/mkrules.d/biblio.mk
 .DEFAULT_GOAL := help
 .PHONY: all ugrade printenv printexport help
 
-all: $(BIB_FILES)
+all: $(BIB_SRC_FILES)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography is up-to-date!"
 
 printenv:
 	@echo BIB_REMOTE_PATH=$(BIB_REMOTE_PATH)
 	@echo BIB_REMOTE_CMD=$(BIB_REMOTE_CMD)
-	@echo BIB_DIR=$(BIB_DIR)
-	@echo BIB_FILES=$(BIB_FILES)
+	@echo BIB_SRC_DIR=$(BIB_SRC_DIR)
+	@echo BIB_SRC_FILES=$(BIB_SRC_FILES)
 
 printexport:
 	@bash -c "printenv | grep BIB_"
