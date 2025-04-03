@@ -54,6 +54,11 @@ ifdef MKLATEX_DISTCLEAN_DIRS
 	rm -fr $(MKLATEX_DISTCLEAN_DIRS)
 endif
 
+printenv:
+	@echo MKLATEX_PATH=$(MKLATEX_PATH)
+	@echo MAKEFLAGS=$(MAKEFLAGS)
+	@echo NPROCS=$(NPROCS)
+
 help:
 	@echo -e "Usage: mklatex[-module] [target | goal] [variable...]"
 	@echo -e ""
@@ -62,6 +67,7 @@ help:
 	@echo -e "\tclean\t\t\t\tDelete auxiliary build files."
 	@echo -e "\tmrproper\t\t\tDelete viewable build files."
 	@echo -e "\tdistclean\t\t\tDelete final files."
+	@echo -e "\tprintenv\t\tPrint common mklatex variables."
 	@echo -e ""
 	@echo -e "Modules:"
 	@echo -e "\tbiblio\t\t\t\tImport external bibliography."
