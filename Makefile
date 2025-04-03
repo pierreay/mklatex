@@ -14,7 +14,7 @@ include $(MKLATEX_PATH)/common.mk
 # ==============================================================================
 
 # Default target definition according to GNU guidelines.
-.DEFAULT_GOAL = all
+.DEFAULT_GOAL = help
 
 # Modules
 # ==============================================================================
