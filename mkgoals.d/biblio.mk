@@ -6,7 +6,7 @@ include $(MKLATEX_PATH)/common.mk
 include $(MKLATEX_PATH)/mkrules.d/biblio.mk
 
 .DEFAULT_GOAL := help
-.PHONY: all ugrade printenv help
+.PHONY: all ugrade printenv printexport help
 
 all: $(BIB_FILES)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography is up-to-date!"
@@ -17,9 +17,13 @@ printenv:
 	@echo BIB_DIR=$(BIB_DIR)
 	@echo BIB_FILES=$(BIB_FILES)
 
+printexport:
+	@bash -c "printenv | grep BIB_"
+
 help:
 	@echo -e "Usage: mklatex-biblio [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\tUpdate bibliography."
-	@echo -e "\tprintenv\t\tPrint mklatex/biblio variables."
+	@echo -e "\tprintenv\t\tPrint mklatex-biblio variables."
+	@echo -e "\tprintexport\t\tPrint exported mklatex-biblio variables."

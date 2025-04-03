@@ -24,7 +24,7 @@ include $(MKLATEX_PATH)/mkrules.d/latex.mk
 # Goals
 # ==============================================================================
 
-.PHONY: all clean mrproper distclean help
+.PHONY: all clean mrproper distclean printenv printexport help
 
 all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
 	$(MAKE) -f $(MKLATEX_PATH)/mkgoals.d/latex.mk showerrs
@@ -61,6 +61,9 @@ printenv:
 	@echo MAKEFLAGS=$(MAKEFLAGS)
 	@echo NPROCS=$(NPROCS)
 
+printexport:
+	@bash -c "printenv | grep MKLATEX_"
+
 help:
 	@echo -e "Usage: mklatex[-module] [target | goal] [variable...]"
 	@echo -e ""
@@ -70,6 +73,7 @@ help:
 	@echo -e "\tmrproper\t\t\tDelete viewable build files."
 	@echo -e "\tdistclean\t\t\tDelete final files."
 	@echo -e "\tprintenv\t\tPrint common mklatex variables."
+	@echo -e "\tprintexported\t\tPrint exported common mklatex variables."
 	@echo -e ""
 	@echo -e "Modules:"
 	@echo -e "\tbiblio\t\t\t\tImport external bibliography."

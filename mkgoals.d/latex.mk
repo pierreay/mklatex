@@ -6,7 +6,7 @@ include $(MKLATEX_PATH)/common.mk
 include $(MKLATEX_PATH)/mkrules.d/latex.mk
 
 .DEFAULT_GOAL := help
-.PHONY: all clean printenv showerrs help
+.PHONY: all clean printenv printexport showerrs help
 
 # Build main document.
 all: $(MKLATEX_OUT_DIR)/$(LATEX_OUT_FILE)
@@ -28,6 +28,9 @@ printenv:
 	@echo LATEX_GS_PDFSETTINGS=$(LATEX_GS_PDFSETTINGS)
 	@echo LATEX_GS_ENABLE=$(LATEX_GS_ENABLE)
 
+printexport:
+	@bash -c "printenv | grep LATEX_"
+
 # Show detected errors from log files.
 showerrs:
 ifeq ($(shell test -d $(LATEX_BUILD_DIR) && test ! -z "$$(find $(LATEX_BUILD_DIR) -type f -name '*.log')" && echo true),true)
@@ -43,7 +46,8 @@ help:
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\t\tBuild LaTeX document (without other modules dependencies)."
 	@echo -e "\tclean\t\t\t\tRemove build files."
-	@echo -e "\tprintenv\t\t\tPrint LaTeX variables."
+	@echo -e "\tprintenv\t\t\tPrint mklatex-latex variables."
+	@echo -e "\tprintexport\t\tPrint exported mklatex-latex variables."
 	@echo -e "\tshowerrs\t\t\tGrep errors from log files."
 	@echo -e ""
 	@echo -e "Targets:"
