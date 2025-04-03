@@ -12,7 +12,7 @@ export PATH = $(shell echo /usr/bin/vendor_perl:$$PATH)
 # - Specifying a `.tex` file to a compiler.
 # - Including subfiles `\include`, `\input`, `\subfile`.
 # - Packages assuming files in current directory (e.g., `makeindex`).
-export TEXINPUTS = $(shell pwd)//:
+export TEXINPUTS = ${PWD}//:
 
 # Variables
 # ==============================================================================
