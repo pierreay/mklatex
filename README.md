@@ -22,7 +22,15 @@ mklatex:
 	$(MAKE) -f modules/mklatex/Makefile all
 ```
 
-# Good practices
+# Tips
+
+## Excluding Makefile section from Docker build
+
+```make
+ifndef MKLATEX_DOCKER_GUEST
+[MAKE CODE]
+endif
+```
 
 ## Makefile variables inside LaTeX
 

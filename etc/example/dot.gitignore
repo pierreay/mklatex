@@ -1,0 +1,6 @@
+# Exclude out-of-tree build files.
+build/
+out/
+
+# Exclude private files.
+etc/make/private.mk
