@@ -15,7 +15,7 @@ printenv:
 	@echo BIB_FILES=$(BIB_FILES)
 
 help:
-	@echo -e "Usage: mklatex-biblio [target] [variable]"
+	@echo -e "Usage: mklatex-biblio [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\tUpdate bibliography."

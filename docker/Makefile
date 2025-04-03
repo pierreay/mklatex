@@ -35,7 +35,7 @@ $(DOCKER_NAME)/.dockerinit:
 # Helper.
 .PHONY: help
 help:
-	@echo -e "Usage: make [target] [variable]"
+	@echo -e "Usage: mklatex-docker [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Targets:"
 	@echo -e "\tinit:\tInitialize the Docker container."

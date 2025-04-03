@@ -35,7 +35,7 @@ ifeq ($(shell test -d $(LATEX_BUILD_DIR) && test ! -z "$$(find $(LATEX_BUILD_DIR
 endif
 
 help:
-	@echo -e "Usage: mklatex-latex [target] [variable]"
+	@echo -e "Usage: mklatex-latex [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\t\tBuild LaTeX document (without other modules dependencies)."

@@ -21,7 +21,7 @@ printenv:
 	@echo INKSCAPE_BUILD_FILES=$(INKSCAPE_BUILD_FILES)
 
 help:
-	@echo -e "Usage: mklatex-inkscape [target] [variable]"
+	@echo -e "Usage: mklatex-inkscape [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\tBuild all Inkscape figures."

@@ -21,7 +21,7 @@ printenv:
 	@echo DRAWIO_BUILD_FILES=$(DRAWIO_BUILD_FILES)
 
 help:
-	@echo -e "Usage: mklatex-drawio [target] [variable]"
+	@echo -e "Usage: mklatex-drawio [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Goals:"
 	@echo -e "\tall\t\t\tBuild all DrawIO figures."
