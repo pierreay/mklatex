@@ -81,7 +81,9 @@ LATEX_RERUNBIB_REGEX := 'No file.*\.bbl|Citation.*undefined'
 LATEX_RERUNGLOSSARY_REGEX := 'Glossary.*is missing'
 
 # Regular expression matching a fatal error.
-LATEX_CHECKERR_REGEX := 'Emergency stop|Runaway argument|File.*not found|! Package.*Error'
+# Beware that long file names contained in an error message can make this one
+# end up on a newline.
+LATEX_CHECKERR_REGEX := 'Emergency stop|Runaway argument|LaTeX Error: File|! Package.*Error'
 
 # Post-processing 
 # ------------------------------------------------------------------------------
