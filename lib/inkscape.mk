@@ -12,6 +12,9 @@ INKSCAPE_SRC_FILES := $(shell [ -d $(INKSCAPE_SRC_DIR) ] && find $(INKSCAPE_SRC_
 # Output filetype [pdf | eps].
 INKSCAPE_BUILD_FT := pdf
 
+# Suffix for files rendered using Inkscape fonts.
+INKSCAPE_FONTS_SUFFIX := _inkscape-fonts
+
 # Directory where exported files will be stored.
 # NOTE: Exported for `os.getenv` in `\directlua`.
 export INKSCAPE_BUILD_DIR := $(INKSCAPE_SRC_DIR:$(MKLATEX_SRC_DIR)/%=$(MKLATEX_BUILD_DIR)/%)
@@ -47,9 +50,11 @@ MRPROPER_DIRS         += $(INKSCAPE_BUILD_DIR)
 $(INKSCAPE_BUILD_DIR):
 	@mkdir -p $(INKSCAPE_BUILD_DIR)
 
-# .svg -> {.inkscape.pdf, .pdf, .pdf_tex}
+# .svg -> {INKSCAPE_FONTS_SUFFIX.pdf, .pdf, .pdf_tex}
+# TODO: Implement a proper feature for Inkscape font rendering. Maybe
+# specifying into the inkcape2latex JSON options for each files?
 $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT): $(INKSCAPE_SRC_DIR)/%.svg | $(INKSCAPE_BUILD_DIR)
 	@[ -z "$(INKSCAPE_SCRIPT_PATH)" ] && \
 		{ echo -e "$(_COL_ERR)[x] mklatex:$(_COL_RES) INKSCAPE_SCRIPT_PATH variable not defined!"; exit 1; } || true
 	$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) $< $@
-	$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) --inkscape-fonts $< $(patsubst %.$(INKSCAPE_BUILD_FT),%.inkscape.$(INKSCAPE_BUILD_FT),$@)
+	$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) --inkscape-fonts $< $(patsubst %.$(INKSCAPE_BUILD_FT),%$(INKSCAPE_FONTS_SUFFIX).$(INKSCAPE_BUILD_FT),$@)
