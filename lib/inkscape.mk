@@ -47,8 +47,9 @@ MRPROPER_DIRS         += $(INKSCAPE_BUILD_DIR)
 $(INKSCAPE_BUILD_DIR):
 	@mkdir -p $(INKSCAPE_BUILD_DIR)
 
-# .svg -> {.pdf, .pdf_tex}
+# .svg -> {.inkscape.pdf, .pdf, .pdf_tex}
 $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT): $(INKSCAPE_SRC_DIR)/%.svg | $(INKSCAPE_BUILD_DIR)
 	@[ -z "$(INKSCAPE_SCRIPT_PATH)" ] && \
 		{ echo -e "$(_COL_ERR)[x] mklatex:$(_COL_RES) INKSCAPE_SCRIPT_PATH variable not defined!"; exit 1; } || true
-		$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) $< $@
+	$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) $< $@
+	$(INKSCAPE_SCRIPT_PATH) $(INKSCAPE_SCRIPT_ARGS) --inkscape-fonts $< $(patsubst %.$(INKSCAPE_BUILD_FT),%.inkscape.$(INKSCAPE_BUILD_FT),$@)
