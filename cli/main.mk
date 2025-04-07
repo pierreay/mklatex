@@ -20,6 +20,7 @@ include $(MKLATEX_PATH)/lib/drawio.mk
 include $(MKLATEX_PATH)/lib/inkscape.mk
 include $(MKLATEX_PATH)/lib/biblio.mk
 include $(MKLATEX_PATH)/lib/latex.mk
+include $(MKLATEX_PATH)/lib/docker.mk
 
 # Goals
 # ==============================================================================

@@ -12,15 +12,15 @@ include $(MKLATEX_PATH)/lib/docker.mk
 # does not handle it well. A better way would be to have a script that run the
 # appropriate command between Arch and Ubuntu.
 all: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
 
 init: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
 test: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) --rm -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
 
 shell: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash
 
 # Clean our Docker images and containers.
 clean:
@@ -34,6 +34,8 @@ printenv:
 	@echo DOCKER_TAG=$(DOCKER_TAG)
 	@echo DOCKER_HWD=$(DOCKER_HWD)
 	@echo DOCKER_GWD=$(DOCKER_GWD)
+	@echo MKLATEX_DOCKER_BUILD_OPTS=$(MKLATEX_DOCKER_BUILD_OPTS)
+	@echo MKLATEX_DOCKER_RUN_OPTS=$(MKLATEX_DOCKER_RUN_OPTS)
 
 printexport:
 	@bash -c "printenv | grep DOCKER_ || true"
@@ -42,13 +44,15 @@ help:
 	@echo -e "Usage: mklatex-docker [target | goal] [variable...]"
 	@echo -e ""
 	@echo -e "Targets:"
-	@echo -e "\tall:\tBuild the project by running 'make all' inside the Docker container."
-	@echo -e "\tinit:\tInitialize the Docker container."
-	@echo -e "\ttest:\tTest such that Docker container is running and can access to our project."
-	@echo -e "\tshell:\tDrop a shell into the Docker container."
-	@echo -e "\tclean:\tClean this Docker image and container."
+	@echo -e "\tall:\t\t\tBuild the project by running 'make all' inside the Docker container."
+	@echo -e "\tinit:\t\t\tInitialize the Docker container."
+	@echo -e "\ttest:\t\t\tTest such that Docker container is running and can access to our project."
+	@echo -e "\tshell:\t\t\tDrop a shell into the Docker container."
+	@echo -e "\tclean:\t\t\tClean this Docker image and container."
 	@echo -e "\tprintenv\t\tPrint mklatex-docker variables."
 	@echo -e "\tprintexport\t\tPrint exported mklatex-docker variables."
 	@echo -e ""
 	@echo -e "Variables:"
-	@echo -e "\tDOCKER_NAME:\tContainer to use. [ubuntu | archlinux] (default = $(DOCKER_NAME))"
+	@echo -e "\tDOCKER_NAME:\t\t\tContainer to use. [ubuntu | archlinux] (default = $(DOCKER_NAME))"
+	@echo -e "\tMKLATEX_DOCKER_BUILD_OPTS:\tAdditional options for Docker build."
+	@echo -e "\tMKLATEX_DOCKER_RUN_OPTS:\tAdditional options for Docker run."

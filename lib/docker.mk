@@ -21,5 +21,5 @@ DOCKER_GWD = /latex
 # ==============================================================================
 
 $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit:
-	docker build -t $(DOCKER_TAG) $$(dirname $@)
+	docker build $(MKLATEX_DOCKER_BUILD_OPTS) -t $(DOCKER_TAG) $$(dirname $@)
 	touch $@
