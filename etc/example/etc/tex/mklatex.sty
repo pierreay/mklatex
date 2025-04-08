@@ -20,6 +20,12 @@
 % LaTeX source files path.
 \newcommand{\texSrcPath}{\directlua{tex.write(os.getenv("LATEX_SRC_DIR"))}}
 
+% Options
+% ------------------------------------------------------------------------------
+
+% Beamer option regarding notes.
+\newcommand{\mklatexLatexBeamerNoteOpt}{\directlua{tex.write(os.getenv("MKLATEX_LATEX_BEAMER_NOTE_OPT"))}}
+
 % Commands
 % ==============================================================================
 

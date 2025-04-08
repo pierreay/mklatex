@@ -103,6 +103,14 @@ LATEX_GS_ENABLE = true
 ifdef MKLATEX_LATEX_BEAMER_HANDOUT
 LATEX_CC_FIRSTLINE += \def\mklatexLatexBeamerHandout{}
 endif
+
+# Handling notes setting.
+ifdef MKLATEX_LATEX_BEAMER_NOTE2ND
+export MKLATEX_LATEX_BEAMER_NOTE_OPT := show notes on second screen
+else
+export MKLATEX_LATEX_BEAMER_NOTE_OPT := hide notes
+endif
+
 # Interfacing with other modules
 # ------------------------------------------------------------------------------
 
