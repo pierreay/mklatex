@@ -30,6 +30,7 @@ printenv:
 	@echo LATEX_GS_ENABLE=$(LATEX_GS_ENABLE)
 	@echo LATEX_ADDITIONAL_REQS=$(LATEX_ADDITIONAL_REQS)
 	@echo LATEX_ADDITIONAL_DEPS=$(LATEX_ADDITIONAL_DEPS)
+	@echo LATEX_CC_FIRSTLINE=$(LATEX_CC_FIRSTLINE)
 
 printexport:
 	@bash -c "printenv | grep LATEX_ || true"
@@ -50,7 +51,7 @@ help:
 	@echo -e "\tall\t\t\t\tBuild LaTeX document (without other modules dependencies)."
 	@echo -e "\tclean\t\t\t\tRemove build files."
 	@echo -e "\tprintenv\t\t\tPrint mklatex-latex variables."
-	@echo -e "\tprintexport\t\tPrint exported mklatex-latex variables."
+	@echo -e "\tprintexport\t\t\tPrint exported mklatex-latex variables."
 	@echo -e "\tshowerrs\t\t\tGrep errors from log files."
 	@echo -e ""
 	@echo -e "Targets:"
@@ -59,3 +60,5 @@ help:
 	@echo -e "Variables:"
 	@echo -e "\tLATEX_ONESHOT\t\t\tPerform only one single compilation pass without glossary or bibliography if defined (may lead to a broken document)."
 	@echo -e "\tLATEX_GS_PDFSETTINGS\t\tCompression level for document post-processing [screen | ebook | printer | prepress]. (Default: $(LATEX_GS_PDFSETTINGS))"
+	@echo -e "\tLATEX_CC_FIRSTLINE\t\tString used as the first TeX line passed to the compiler before having the \input command with the compiled file."
+	@echo -e "\tMKLATEX_LATEX_BEAMER_HANDOUT\tIf defined, set the mklatexLatexBeamerHandout TeX variable to compile a Beamer presentation in handout mode (see mklatex.sty)."

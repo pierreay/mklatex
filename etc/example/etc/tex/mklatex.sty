@@ -37,10 +37,16 @@
 % Options
 % ==============================================================================
 
+% biblatex:
 \PassOptionsToPackage{
   % Use Biber as backend instead of Bibtex.
   backend=biber,
 }{biblatex}
+
+% beamer:
+\ifdefined\mklatexLatexBeamerHandout
+\PassOptionsToClass{handout}{beamer}
+\fi
 
 % Requires
 % ==============================================================================

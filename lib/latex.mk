@@ -94,6 +94,15 @@ LATEX_GS_PDFSETTINGS = prepress
 # Should we compress using GhostScript?
 LATEX_GS_ENABLE = true
 
+# Packages
+# ------------------------------------------------------------------------------
+
+# --- Beamer
+
+# Handling handout setting.
+ifdef MKLATEX_LATEX_BEAMER_HANDOUT
+LATEX_CC_FIRSTLINE += \def\mklatexLatexBeamerHandout{}
+endif
 # Interfacing with other modules
 # ------------------------------------------------------------------------------
 
@@ -132,12 +141,12 @@ $(LATEX_BUILD_DIR)/%.pdf: $(LATEX_SRC_FILES) $(LATEX_ADDITIONAL_DEPS) | $(LATEX_
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Build $@..."
 ifndef LATEX_ONESHOT
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 1/3:"
-	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) $(patsubst $(LATEX_BUILD_DIR)/%.pdf,$(LATEX_SRC_DIR)/%,$@)
+	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) "$(LATEX_CC_FIRSTLINE)\input{$(patsubst $(LATEX_BUILD_DIR)/%.pdf,$(LATEX_SRC_DIR)/%,$@)"
 	@grep -E -q $(LATEX_RERUNGLOSSARY_REGEX) $(patsubst %.pdf,%.log,$@) && $(MAKE) $(patsubst %.pdf,%.glg,$@) || true
 	@grep -E -q $(LATEX_RERUNBIB_REGEX)      $(patsubst %.pdf,%.log,$@) && $(MAKE) $(patsubst %.pdf,%.bbl,$@) || true
 endif
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 3/3:"
-	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_FINAL) $(patsubst $(LATEX_BUILD_DIR)/%.pdf,$(LATEX_SRC_DIR)/%,$@)
+	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_FINAL) "$(LATEX_CC_FIRSTLINE)\input{$(patsubst $(LATEX_BUILD_DIR)/%.pdf,$(LATEX_SRC_DIR)/%,$@)}"
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Build $@ end!"
 
 # Glossary build.
@@ -146,7 +155,7 @@ $(LATEX_BUILD_DIR)/%.glg: .FORCE_RERUN
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Glossary and index build..."
 	$(LATEX_GLOSSARY_CC_BIN) -d $$(dirname $@) $$(basename $(patsubst $(LATEX_BUILD_DIR)/%.glg,%,$@))
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 2/3:"
-	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) $(patsubst $(LATEX_BUILD_DIR)/%.glg,$(LATEX_SRC_DIR)/%,$@)
+	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) "$(LATEX_CC_FIRSTLINE)\input{$(patsubst $(LATEX_BUILD_DIR)/%.glg,$(LATEX_SRC_DIR)/%,$@)"
 
 # Bibliography build.
 # Running condition is detected using LaTeX logs by caller, so it has to be forced run.
