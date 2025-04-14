@@ -61,6 +61,7 @@ help:
 	@echo -e "Variables:"
 	@echo -e "\tLATEX_ONESHOT\t\t\tPerform only one single compilation pass without glossary or bibliography if defined (may lead to a broken document)."
 	@echo -e "\tLATEX_GS_PDFSETTINGS\t\tCompression level for document post-processing [screen | ebook | printer | prepress]. (Default: $(LATEX_GS_PDFSETTINGS))"
+	@echo -e "\tLATEX_GS_ENABLE\t\t\tEnable or disable compression post-processing using GhostScript [true | false]. (Default: $(LATEX_GS_ENABLE))"
 	@echo -e "\tLATEX_CC_FIRSTLINE\t\tString used as the first TeX line passed to the compiler before having the \input command with the compiled file."
 	@echo -e "\tMKLATEX_LATEX_BEAMER_HANDOUT\tIf defined, set the mklatexLatexBeamerHandout TeX variable to compile a Beamer presentation in handout mode (see mklatex.sty)."
 	@echo -e "\tMKLATEX_LATEX_BEAMER_NOTE_OPT\tString that set the mklatexLatexBeamerNoteOpt TeX variable to configure note mode [ hide notes | show notes on second screen ]. (Default: $(MKLATEX_LATEX_BEAMER_NOTE_OPT))"
