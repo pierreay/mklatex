@@ -7,7 +7,7 @@ DOCKER_ETC_PATH := $(MKLATEX_PATH)/$(_MKLATEX_ETC_DIR)/docker
 
 # Docker directory that will be use to find the Dockerfile.
 DOCKER_NAME ?= ubuntu
-# Docker tag that will be use to name the Docker image.
+# Docker tag that will be use to name the Docker image and the container.
 DOCKER_TAG := mklatex-docker/$(DOCKER_NAME)
 
 # Working directory for the Docker host.
