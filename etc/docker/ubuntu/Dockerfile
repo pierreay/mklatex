@@ -11,14 +11,21 @@ RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip ap
 # TeX Live distribution:
 RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool
 
-# Drawing tools:
-RUN apt-get update && apt-get install -yq inkscape
-
 # Dependency for our Inkscape exporter script:
 RUN apt-get update && apt-get install -yq jq bc
 
 # Dependencies for our Makefile processing:
 RUN apt-get update && apt-get install -yq ghostscript imagemagick
+
+# Inkscape
+# ==============================================================================
+# - Inkscape may be installed from official Ubuntu repos, but its version is
+#   outdated for 2 years and may give segmentation fault on some recent SVGs.
+# - As a result, use the official Inkscape PPA for the latest stable version.
+RUN apt-get update && apt install -yq software-properties-common
+RUN add-apt-repository -y universe
+RUN add-apt-repository -y ppa:inkscape.dev/stable
+RUN apt-get update && apt-get install -yq inkscape
 
 # DrawIO
 # ==============================================================================
