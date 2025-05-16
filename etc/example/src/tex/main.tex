@@ -1,7 +1,7 @@
 % Load `mklatex` interface and configuration in the first place.
 % (Eventually pass options to `\documentclass`).
 \newcommand{\texEtcPath}{\directlua{tex.write(os.getenv("LATEX_ETC_DIR"))}}
-+\RequirePackage{\texEtcPath/mklatex}
+\RequirePackage{\texEtcPath/mklatex}
 
 \documentclass[paper=a4,fontsize=11pt]{article}
 
