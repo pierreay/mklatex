@@ -1,0 +1,1 @@
+- [ ] Create a continuous integration on GitHub using one of the Docker image for building document
