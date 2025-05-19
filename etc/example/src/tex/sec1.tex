@@ -5,4 +5,12 @@
 
 First paragraph with one citation~\cite{mycite}.
 
+\section{Versions}
+
+\IfStrEq{\mklatexLatexVersionName}{myconf25}{
+  This is a paragraph included only for myconf25!
+}{
+  This is a paragraph included for other versions!
+}
+
 \end{document}

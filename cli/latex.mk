@@ -31,7 +31,10 @@ printenv:
 	@echo LATEX_ADDITIONAL_REQS=$(LATEX_ADDITIONAL_REQS)
 	@echo LATEX_ADDITIONAL_DEPS=$(LATEX_ADDITIONAL_DEPS)
 	@echo LATEX_CC_FIRSTLINE=$(LATEX_CC_FIRSTLINE)
-	@echo MKLATEX_LATEX_BEAMER_NOTE_OPT=$(KLATEX_LATEX_BEAMER_NOTE_OPT)
+	@echo MKLATEX_LATEX_VERSION_NAME=$(MKLATEX_LATEX_VERSION_NAME)
+	@echo MKLATEX_LATEX_BEAMER_HANDOUT=$(MKLATEX_LATEX_BEAMER_HANDOUT)
+	@echo MKLATEX_LATEX_BEAMER_NOTE2ND=$(MKLATEX_LATEX_BEAMER_NOTE2ND)
+	@echo MKLATEX_LATEX_BEAMER_NOTE_OPT=$(MKLATEX_LATEX_BEAMER_NOTE_OPT)
 
 printexport:
 	@bash -c "printenv | grep LATEX_ || true"
@@ -63,6 +66,7 @@ help:
 	@echo -e "\tLATEX_GS_PDFSETTINGS\t\tCompression level for document post-processing [screen | ebook | printer | prepress]. (Default: $(LATEX_GS_PDFSETTINGS))"
 	@echo -e "\tLATEX_GS_ENABLE\t\t\tEnable or disable compression post-processing using GhostScript [true | false]. (Default: $(LATEX_GS_ENABLE))"
 	@echo -e "\tLATEX_CC_FIRSTLINE\t\tString used as the first TeX line passed to the compiler before having the \input command with the compiled file."
+	@echo -e "\tMKLATEX_LATEX_VERSION_NAME\tName of a specific document version. If defined, set the mklatexLatexVersionName TeX variable."
 	@echo -e "\tMKLATEX_LATEX_BEAMER_HANDOUT\tIf defined, set the mklatexLatexBeamerHandout TeX variable to compile a Beamer presentation in handout mode (see mklatex.sty)."
 	@echo -e "\tMKLATEX_LATEX_BEAMER_NOTE_OPT\tString that set the mklatexLatexBeamerNoteOpt TeX variable to configure note mode [ hide notes | show notes on second screen ]. (Default: $(MKLATEX_LATEX_BEAMER_NOTE_OPT))"
 	@echo -e "\tMKLATEX_LATEX_BEAMER_NOTE2ND\tIf defined, set the MKLATEX_LATEX_BEAMER_NOTE_OPT variable to show notes on second screen."

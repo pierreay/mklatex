@@ -94,8 +94,14 @@ LATEX_GS_PDFSETTINGS = prepress
 # Should we compress using GhostScript?
 LATEX_GS_ENABLE = true
 
-# Packages
+# Passed to LaTeX
 # ------------------------------------------------------------------------------
+
+# --- Generic
+
+ifdef MKLATEX_LATEX_VERSION_NAME
+LATEX_CC_FIRSTLINE += \def\mklatexLatexVersionName{$(MKLATEX_LATEX_VERSION_NAME)}
+endif
 
 # --- Beamer
 
