@@ -12,26 +12,26 @@ include $(MKLATEX_PATH)/lib/docker.mk
 # does not handle it well. A better way would be to have a script that run the
 # appropriate command between Arch and Ubuntu.
 all: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) --name $(DOCKER_TAG) -ai $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) --name $(DOCKER_TAG) -ai $(DOCKER_IMAGE_NAME) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
 
 init: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
 test: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_IMAGE_NAME) /bin/bash -c "cd $(DOCKER_GWD) && ls -alh"
 
 shell: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker start -ai $(DOCKER_TAG) || docker run $(MKLATEX_DOCKER_RUN_OPTS) -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_TAG) /bin/bash
+	docker start -ai $(DOCKER_TAG) || docker run $(MKLATEX_DOCKER_RUN_OPTS) -it -v $(DOCKER_HWD):$(DOCKER_GWD) $(DOCKER_IMAGE_NAME) /bin/bash
 
 # Clean our Docker images and containers.
 clean:
 	docker container ls --all | grep $(DOCKER_TAG) | awk '{print $$1}' | xargs -n1 -r docker container rm
-	docker image rm $(DOCKER_TAG):latest
+	docker image rm $(DOCKER_IMAGE_NAME):latest
 	rm $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
 printenv:
 	@echo DOCKER_ETC_PATH=$(DOCKER_ETC_PATH)
 	@echo DOCKER_NAME=$(DOCKER_NAME)
-	@echo DOCKER_TAG=$(DOCKER_TAG)
+	@echo DOCKER_IMAGE_NAME=$(DOCKER_IMAGE_NAME)
 	@echo DOCKER_HWD=$(DOCKER_HWD)
 	@echo DOCKER_GWD=$(DOCKER_GWD)
 	@echo MKLATEX_DOCKER_BUILD_OPTS=$(MKLATEX_DOCKER_BUILD_OPTS)
