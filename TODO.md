@@ -12,6 +12,8 @@
 
 # Tooling Support
 
+- [ ] Create a Python script that will reformat LaTeX logs into good paragraph
+  without line breaking due to column width.
 - [ ] Add support of `tikzplotlib`? See:
   - [Create publication ready figures with Matplotlib and TikZ - Martin’s blog](https://blog.martisak.se/2019/09/29/publication_ready_figures/).
 - [ ] Add support of `svg`? LaTeX package provides an `includeinkscape` option.
