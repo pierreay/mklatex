@@ -42,10 +42,15 @@ printexport:
 # Show detected errors from log files.
 showerrs:
 ifeq ($(shell test -d $(LATEX_BUILD_DIR) && test ! -z "$$(find $(LATEX_BUILD_DIR) -type f -name '*.log')" && echo true),true)
+ifeq (, $(shell which pplatex))
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Grep for errors..."
 	@$(LATEX_GREP_CMD) $(LATEX_RERUNBIB_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
 	@$(LATEX_GREP_CMD) $(LATEX_RERUNGLOSSARY_REGEX) $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
 	@$(LATEX_GREP_CMD) $(LATEX_CHECKERR_REGEX)      $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
+else
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run pplatex..."
+	pplatex -i $$(find $(LATEX_BUILD_DIR) -type f -name '*.log') || true
+endif
 endif
 
 help:
