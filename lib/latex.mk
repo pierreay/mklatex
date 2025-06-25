@@ -49,6 +49,8 @@ LATEX_OUT_FILE = main.pdf
 LATEX_CC_BIN = lualatex
 
 # Compiler arguments for draft or final mode.
+# -file-line-error
+#		Prints error messages in the form `file:line:error`.
 # -shell-escape
 #		Enable system commands.
 # -interaction=batchmode
@@ -59,8 +61,8 @@ LATEX_CC_BIN = lualatex
 #		Do not produce an output PDF (faster).
 # --synctex=1
 #		Enable SyncTeX support (needs editor and viewer support too).
-LATEX_CC_ARGS_DRAFT = -shell-escape -interaction=batchmode --halt-on-error --draftmode
-LATEX_CC_ARGS_FINAL = -shell-escape -interaction=batchmode --halt-on-error --synctex=1
+LATEX_CC_ARGS_DRAFT = -file-line-error -shell-escape -interaction=batchmode --halt-on-error --draftmode
+LATEX_CC_ARGS_FINAL = -file-line-error -shell-escape -interaction=batchmode --halt-on-error --synctex=1
 
 # Bibliography processor.
 LATEX_BIB_CC_BIN = biber
