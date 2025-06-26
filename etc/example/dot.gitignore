@@ -3,4 +3,5 @@ build/
 out/
 
 # Exclude private files.
+.env.private
 etc/make/private.mk
