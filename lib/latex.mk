@@ -94,7 +94,7 @@ LATEX_CHECKERR_REGEX := 'Emergency stop|Runaway argument|^! LaTeX Error: |! Pack
 LATEX_GS_PDFSETTINGS = prepress
 
 # Should we compress using GhostScript?
-LATEX_GS_ENABLE = true
+LATEX_GS_ENABLE = false
 
 # Passed to LaTeX
 # ------------------------------------------------------------------------------
