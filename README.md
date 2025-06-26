@@ -2,26 +2,50 @@
 
 Modular self-contained LaTeX build system.
 
+## Features
+
+- Keep organized:
+  - Out-of-tree build
+  - Multiple source file handling
+  - Multiple document version handling
+- Fast to use:
+  - Parallel
+  - Autocompletion
+- Post-processing for optimal files:
+  - Compression
+- Modular:
+  - System or project-wide installation
+  - Hackable to suite any project
+- Suited for:
+  - Articles
+  - Thesis
+  - Slides (animated through LaTeX & Inkscape)
+
+## Support
+
 Provides support for the following external software:
 
-| Type         | Software                                                                                                                   |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Editor       | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [compiler](https://vimhelp.org/quickfix.txt.html#%3Acompiler) |
-| Editor       | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
-| Container    | [Docker](https://www.docker.com/)                                                                                          |
-| Drawing      | [DrawIO](https://www.drawio.com/)                                                                                          |
-| Drawing      | [Inkscape](https://inkscape.org/)                                                                                          |
+| Type            | Software                                                                                                                   |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Editor          | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [compiler](https://vimhelp.org/quickfix.txt.html#%3Acompiler) |
+| Editor          | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
+| Container       | [Docker](https://www.docker.com/)                                                                                          |
+| Drawing         | [DrawIO](https://www.drawio.com/)                                                                                          |
+| Drawing         | [Inkscape](https://inkscape.org/)                                                                                          |
+| Bibliography    | [Papis](https://github.com/papis/papis)                                                                                    |
+| Post-processing | [GhostScript](https://www.ghostscript.com/)                                                                                |
 
 Provides support for the following LaTeX packages:
 
-| Type         | Software                                                                                                                   |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Compiler     | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                                     |
-| Slides       | [Beamer](https://ctan.org/pkg/beamer)                                                                                      |
-| Bibliography | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)                               |
-| Glossary     | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra)                  |
-| Index        | [makeindex](https://ctan.org/pkg/makeindex)                                                                                |
-| Log parsing  | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                                           |
+| Type         | Software                                                                                                  |
+| ------------ | --------------------------------------------------------------------------------------------------------- |
+| Compiler     | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                    |
+| Slides       | [Beamer](https://ctan.org/pkg/beamer)                                                                     |
+| Modularity   | [Subfiles](https://ctan.org/pkg/subfiles)                                                                 |
+| Bibliography | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)              |
+| Glossary     | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra) |
+| Index        | [makeindex](https://ctan.org/pkg/makeindex)                                                               |
+| Log parsing  | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                          |
 
 # Installation
 
