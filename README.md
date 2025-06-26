@@ -4,6 +4,9 @@ Modular self-contained LaTeX build system.
 
 ## Features
 
+- Automatized:
+  - Reproducible and containerized build
+  - Continuous integration pipeline
 - Keep organized:
   - Out-of-tree build
   - Multiple source file handling
@@ -25,15 +28,16 @@ Modular self-contained LaTeX build system.
 
 Provides support for the following external software:
 
-| Type            | Software                                                                                                                   |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Editor          | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [compiler](https://vimhelp.org/quickfix.txt.html#%3Acompiler) |
-| Editor          | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
-| Container       | [Docker](https://www.docker.com/)                                                                                          |
-| Drawing         | [DrawIO](https://www.drawio.com/)                                                                                          |
-| Drawing         | [Inkscape](https://inkscape.org/)                                                                                          |
-| Bibliography    | [Papis](https://github.com/papis/papis)                                                                                    |
-| Post-processing | [GhostScript](https://www.ghostscript.com/)                                                                                |
+| Type                        | Software                                                                                                                   |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Editor                      | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [compiler](https://vimhelp.org/quickfix.txt.html#%3Acompiler) |
+| Editor                      | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
+| Container                   | [Docker](https://www.docker.com/)                                                                                          |
+| Drawing                     | [DrawIO](https://www.drawio.com/)                                                                                          |
+| Drawing                     | [Inkscape](https://inkscape.org/)                                                                                          |
+| Bibliography                | [Papis](https://github.com/papis/papis)                                                                                    |
+| Post-processing             | [GhostScript](https://www.ghostscript.com/)                                                                                |
+| Continuous Integration (CI) | [GitLab](https://gitlab.com/)                                                                                              |
 
 Provides support for the following LaTeX packages:
 
