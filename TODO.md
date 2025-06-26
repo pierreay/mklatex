@@ -2,6 +2,7 @@
 
 - [ ] Refactor CLI by using dedicated scripts in `bin/` (to be added in
   `$PATH`) and providing autocompletion.
+- [ ] Add an install script [inspired from this one](https://github.com/tomups/worktrees-scripts/blob/main/install.sh).
 
 # Build System
 
