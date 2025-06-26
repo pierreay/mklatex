@@ -15,7 +15,7 @@ include $(MKLATEX_PATH)/lib/docker.mk
 # does not handle it well. A better way would be to have a script that run the
 # appropriate command between Arch and Ubuntu.
 all: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
-	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) -it $(DOCKER_IMAGE_NAME) /bin/bash -c "cd $(DOCKER_GWD) && make -j1 all"
+	docker run $(MKLATEX_DOCKER_RUN_OPTS) -v $(DOCKER_HWD):$(DOCKER_GWD) -it $(DOCKER_IMAGE_NAME) /bin/bash -c "cd $(DOCKER_GWD) && source .env && make -j1 all"
 
 init: $(DOCKER_ETC_PATH)/$(DOCKER_NAME)/.dockerinit
 
