@@ -4,16 +4,18 @@ Modular self-contained LaTeX build system.
 
 Optionally supports:
 
-| Type         | Software                                                                                                  |
-| ------------ | --------------------------------------------------------------------------------------------------------- |
-| Drawing      | [DrawIO](https://www.drawio.com/)                                                                         |
-| Drawing      | [Inkscape](https://inkscape.org/)                                                                         |
-| Log parsing  | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                          |
-| Slides       | [Beamer](https://ctan.org/pkg/beamer)                                                                     |
-| Compiler     | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                    |
-| Bibliography | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)              |
-| Glossary     | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra) |
-| Index        | [makeindex](https://ctan.org/pkg/makeindex)                                                               |
+| Type         | Software                                                                                                                   |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Editor       | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [compiler](https://vimhelp.org/quickfix.txt.html#%3Acompiler) |
+| Editor       | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
+| Drawing      | [DrawIO](https://www.drawio.com/)                                                                                          |
+| Drawing      | [Inkscape](https://inkscape.org/)                                                                                          |
+| Log parsing  | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                                           |
+| Slides       | [Beamer](https://ctan.org/pkg/beamer)                                                                                      |
+| Compiler     | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                                     |
+| Bibliography | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)                               |
+| Glossary     | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra)                  |
+| Index        | [makeindex](https://ctan.org/pkg/makeindex)                                                                                |
 
 # Installation
 
