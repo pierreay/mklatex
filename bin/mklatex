@@ -4,15 +4,21 @@
 # Global variables
 # ==============================================================================
 
+# TODO: Add MKLATEX_LATEX_VERSION_NAME support
+
+# Working mode (see line number in `help()/Usage`).
+MODE=0
+
 # Program's options (switches).
 OPT_VERBOSE=false
 OPT_LOG=false
 OPT_SINGLE=false
+OPT_COMPRESS=false
 OPT_NOTES=false
 OPT_HANDOUT=false
 
 # Program's option-arguments (variables).
-# OPTARG_FILE="/dev/null"
+OPTARG_OUTFILE=""
 
 # Program's arguments.
 ARGS=""
@@ -23,31 +29,43 @@ ARGS=""
 # Program's help.
 function help() {
     cat << EOF
-Usage: $(basename $0) [OPTIONS]... FILE.tex
+Usage:
+    $(basename $0) [OPTIONS]... FILE.tex
+    $(basename $0) [OPTIONS]... MODULE TARGET
 
-Compile the input LaTeX document.
+Compile the input LaTeX document or interact with Makefile's modules.
 
 Options:
-    -h, --help          Show this help.
-    -v, --verbose       Enable verbose mode.
-    -l, --log           Show build log.
-    -s, --single        Only perform a single pass compilation.
+    -h, --help                  Show this help.
+    -v, --verbose               Enable verbose mode.
+    -l, --log                   Show build log.
+    -s, --single                Only perform a single pass compilation.
+    -c, --compress              Compress the PDF after compilation.
+    -o FILE, --outfile FILE     Output PDF file.
 
 Options for Beamer:
-    --notes             Enable Beamer notes mode.
-    --handout           Enable Beamer handout mode.
+    --notes                     Enable Beamer notes mode.
+    --handout                   Enable Beamer handout mode.
+
+Modules:
+    main                        Main module to build documents handling all dependencies.
+    latex                       Build LaTeX documents.
+    inkscape                    Build Inkscape figures.
+    drawio                      Build DrawIO figures.
+    docker                      Manage and build inside Docker.
+    biblio                      Import and format local bibliography.
 
 Environment:
-    MKLATEX_PATH        Path of MKLaTeX (required).
-    MKLATEX_SRC_DIR     Directory containing source files (required).
-    MKLATEX_BUILD_DIR   Directory containing build files (required).
+    MKLATEX_PATH                Path of MKLaTeX (required).
+    MKLATEX_SRC_DIR             Directory containing source files (required).
+    MKLATEX_BUILD_DIR           Directory containing build files (required).
 
 Exit status:
   0     if OK,
   1     if minor problem (e.g., warning),
   2     if major problem (e.g., fatal error).
 
-Full documentation <https://URL>
+Full documentation <https://github.com/pierreay/mklatex.git>
 EOF
 }
 
@@ -63,8 +81,8 @@ fi
 # Let `getopt` parse the options/arguments following our specification below. 
 # NOTE:
 # - "f:" and "file:"  means that `-f` and `--file` are option-arguments.
-TEMP=$(getopt --options hvls                   \
-              --longoptions help,verbose,log,single,notes,handout \
+TEMP=$(getopt --options hvlsco:                                                     \
+              --longoptions help,verbose,log,single,compress,outfile:,notes,handout \
               -n "$(basename $0)" -- "$@")
 if [ $? != 0 ] ; then exit 2 ; fi
 # Set the output of `getopt` as the options/arguments of current program.
@@ -77,11 +95,13 @@ while true; do
       help
       exit 0
       ;;
-    -v | --verbose ) OPT_VERBOSE=true ; shift ;;
-    -l | --log     ) OPT_LOG=true     ; shift ;;
-    -s | --single  ) OPT_SINGLE=true  ; shift ;;
-    --notes        ) OPT_NOTES=true   ; shift ;;
-    --handout      ) OPT_HANDOUT=true ; shift ;;
+    -v | --verbose  ) OPT_VERBOSE=true    ; shift   ;;
+    -l | --log      ) OPT_LOG=true        ; shift   ;;
+    -s | --single   ) OPT_SINGLE=true     ; shift   ;;
+    -c | --compress ) OPT_COMPRESS=true   ; shift   ;;
+    --notes         ) OPT_NOTES=true      ; shift   ;;
+    --handout       ) OPT_HANDOUT=true    ; shift   ;;
+    -o | --outfile  ) OPTARG_OUTFILE="$2" ; shift 2 ;;
     -- ) shift ; break ;;
     * ) break ;;
   esac
@@ -127,25 +147,60 @@ function outfile2logfile() {
 function execmake() {
     local module=${1?module undefined}
     local file=${2?file undefined}
-    make -f "${MKLATEX_PATH}/cli/${module}" MKLATEX_INCLUDE_PRE=etc/make/common.mk "${file}"
+    local args=""
+
+    # Build Make command line based on global options and arguments.
+    if [[ "${OPT_SINGLE}" = true ]]; then
+        args+="LATEX_ONESHOT=true "
+    fi
+    if [[ "${OPT_COMPRESS}" = true ]]; then
+        args+="LATEX_GS_ENABLE=true "
+    fi
+    if [[ "${OPT_NOTES}" = true ]]; then
+        args+="MKLATEX_LATEX_BEAMER_NOTE2ND=true "
+    fi
+    if [[ "${OPT_HANDOUT}" = true ]]; then
+        args+="MKLATEX_LATEX_BEAMER_HANDOUT=true "
+    fi
+    if [[ ! -z "${OPTARG_OUTFILE}" ]]; then
+        args+="LATEX_OUT_FILE=${OPTARG_OUTFILE} "
+    fi
+
+    make -f "${MKLATEX_PATH}/cli/${module}" MKLATEX_INCLUDE_PRE=etc/make/common.mk ${args} "${file}"
 }
 
 # Program
 # ==============================================================================
 
-function main() {
-    # Get user input
+function main_arg1() {
+    # Get user input.
     local file="${ARGS[0]}"
 
-    # Perform file manipulation
+    # Perform file manipulation to get target output file.
     file="$(infile2outfile "${file}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
     local log="$(outfile2logfile "${file}")"
 
-    # Call the Makefile system and cat log for editor parsing
+    # Call the Makefile system.
     execmake "main.mk" "${file}"
 
+    # Show log if requested (mainly for editor parsing).
     if [[ "${OPT_LOG}" = true ]]; then
         cat "${log}"
+    fi
+}
+
+function main_arg2() {
+    execmake "${ARGS[0]}.mk" "${ARGS[1]}"
+}
+
+function main() {
+    if [[ ${#ARGS[@]} -eq 1 ]]; then
+        main_arg1
+    elif [[ ${#ARGS[@]} -eq 2 ]]; then
+        main_arg2
+    else
+        echo "Fatal: Bad number of arguments: ${#ARGS[@]}"
+        exit 2
     fi
 }
 
