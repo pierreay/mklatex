@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -u
+
+# Get user input
+
+INPUT_FILE="${1}"
+INPUT_EXT="${INPUT_FILE##*.}"
+
+# Get variables from Makefile
+
+MKLATEX_SRC_DIR="$(grep -E "MKLATEX_SRC_DIR [:=]" "${MKLATEX_PATH}/lib/common.mk" | cut -d '=' -f 2 | awk '{print $1}')"
+MKLATEX_BUILD_DIR="$(grep -E "MKLATEX_BUILD_DIR [:=]" "${MKLATEX_PATH}/lib/common.mk" | cut -d '=' -f 2 | awk '{print $1}')"
+
+# Perform file manipulation
+
+# src dir -> build dir
+if [[ "$(realpath "${INPUT_FILE}")" =~ "$(realpath "${MKLATEX_SRC_DIR}")" ]]; then
+    INPUT_FILE="$(echo "${INPUT_FILE}" | sed "s/${MKLATEX_SRC_DIR}\//${MKLATEX_BUILD_DIR}\//")"
+fi
+
+# .tex -> .pdf
+if [[ "${INPUT_EXT}" == "tex" ]]; then
+    INPUT_FILE="$(echo "${INPUT_FILE}" | sed 's/\.tex$/\.pdf/')"
+fi
+
+# pdf -> log
+INPUT_LOG="$(echo "${INPUT_FILE}" | sed 's/\.pdf/\.log/')"
+
+# absolute -> relative
+if [[ "${INPUT_FILE:0:1}" == "/" ]]; then
+    INPUT_FILE="$(realpath -s --relative-to="${PWD}" "${INPUT_FILE}")"
+fi
+
+# Call the Makefile system and print result
+
+make -f ${MKLATEX_PATH}/cli/main.mk MKLATEX_INCLUDE_PRE=etc/make/common.mk "${INPUT_FILE}"
+cat "${INPUT_LOG}"
