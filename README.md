@@ -39,17 +39,18 @@ Provides support for the following external software:
 | Post-processing             | [GhostScript](https://www.ghostscript.com/)                                                                                |
 | Continuous Integration (CI) | [GitLab](https://gitlab.com/)                                                                                              |
 
-Provides support for the following LaTeX packages:
+Provides support for the following LaTeX packages or addons:
 
-| Type         | Software                                                                                                  |
-| ------------ | --------------------------------------------------------------------------------------------------------- |
-| Compiler     | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                    |
-| Slides       | [Beamer](https://ctan.org/pkg/beamer)                                                                     |
-| Modularity   | [Subfiles](https://ctan.org/pkg/subfiles)                                                                 |
-| Bibliography | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)              |
-| Glossary     | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra) |
-| Index        | [makeindex](https://ctan.org/pkg/makeindex)                                                               |
-| Log parsing  | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                          |
+| Type            | Software                                                                                                  |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| Compiler        | [pdfTeX](https://www.tug.org/applications/pdftex/) & [LuaTeX](https://www.luatex.org/)                    |
+| Slides          | [Beamer](https://ctan.org/pkg/beamer)                                                                     |
+| Modularity      | [Subfiles](https://ctan.org/pkg/subfiles)                                                                 |
+| Bibliography    | [biblatex](https://ctan.org/pkg/biblatex) + [biber](https://biblatex-biber.sourceforge.net/)              |
+| Glossary        | [glossaries](https://ctan.org/pkg/glossaries) & [glossaries-extra](https://ctan.org/pkg/glossaries-extra) |
+| Index           | [makeindex](https://ctan.org/pkg/makeindex)                                                               |
+| Log parsing     | [PPLaTeX](https://github.com/stefanhepp/pplatex)                                                          |
+| Synchronization | [SyncTeX](https://github.com/jlaurens/synctex)                                                            |
 
 # Installation
 
