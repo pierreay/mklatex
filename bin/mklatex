@@ -1,11 +1,47 @@
 #!/usr/bin/env bash
 
-set -u
+set -e   # Stop script if a command exit with non zero.
+
+if [[ "${#}" -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
+    echo "Usage: $(basename $0) INPUT.tex"
+    echo "Description: Compile the input LaTeX document."
+    exit 1
+fi
+
+# NOTE: Must be set after optional $1 expansion.
+set -u   # Stop script if an empty variable is expanded.
+
+function infile2outfile() {
+    local filepath="${1?filepath unset}"
+    local dirin="${2?dirin unset}"
+    local dirout="${3?dirout unset}"
+
+    # path substitution: src dir -> build dir
+    if [[ "$(realpath "${filepath}")" =~ "$(realpath "${dirin}")" ]]; then
+        filepath="$(echo "${filepath}" | sed "s/${dirin}\//${dirout}\//")"
+    fi
+
+    # extension substitution: .tex -> .pdf
+    if [[ "${filepath##*.}" == "tex" ]]; then
+        filepath="$(echo "${filepath}" | sed 's/\.tex$/\.pdf/')"
+    fi
+
+    # path conversion: absolute -> relative
+    if [[ "${filepath:0:1}" == "/" ]]; then
+        filepath="$(realpath -s --relative-to="${PWD}" "${filepath}")"
+    fi
+
+    echo "${filepath}"
+}
+
+function outfile2logfile() {
+    # extension substitution: .pdf -> .log
+    echo "${1?outfile unset}" | sed 's/\.pdf/\.log/'
+}
 
 # Get user input
 
 INPUT_FILE="${1}"
-INPUT_EXT="${INPUT_FILE##*.}"
 
 # Get variables from Makefile
 
@@ -14,23 +50,8 @@ MKLATEX_BUILD_DIR="$(grep -E "MKLATEX_BUILD_DIR [:=]" "${MKLATEX_PATH}/lib/commo
 
 # Perform file manipulation
 
-# src dir -> build dir
-if [[ "$(realpath "${INPUT_FILE}")" =~ "$(realpath "${MKLATEX_SRC_DIR}")" ]]; then
-    INPUT_FILE="$(echo "${INPUT_FILE}" | sed "s/${MKLATEX_SRC_DIR}\//${MKLATEX_BUILD_DIR}\//")"
-fi
-
-# .tex -> .pdf
-if [[ "${INPUT_EXT}" == "tex" ]]; then
-    INPUT_FILE="$(echo "${INPUT_FILE}" | sed 's/\.tex$/\.pdf/')"
-fi
-
-# pdf -> log
-INPUT_LOG="$(echo "${INPUT_FILE}" | sed 's/\.pdf/\.log/')"
-
-# absolute -> relative
-if [[ "${INPUT_FILE:0:1}" == "/" ]]; then
-    INPUT_FILE="$(realpath -s --relative-to="${PWD}" "${INPUT_FILE}")"
-fi
+INPUT_FILE="$(infile2outfile "${INPUT_FILE}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
+INPUT_LOG="$(outfile2logfile "${INPUT_FILE}")"
 
 # Call the Makefile system and print result
 
