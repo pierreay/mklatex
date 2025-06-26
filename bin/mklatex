@@ -6,6 +6,7 @@ if [[ "${#}" -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
     echo "Usage: $(basename $0) INPUT.tex"
     echo "Description: Compile the input LaTeX document."
     echo "Environment:"
+    echo -e "\tMKLATEX_PATH: Path of MKLaTeX."
     echo -e "\tMKLATEX_SRC_DIR: Directory containing source files (required)."
     echo -e "\tMKLATEX_BUILD_DIR: Directory containing build files (required)."
     exit 1
@@ -42,16 +43,17 @@ function outfile2logfile() {
     echo "${1?outfile unset}" | sed 's/\.pdf/\.log/'
 }
 
+function execmake() {
+    local module=${1?module undefined}
+    local file=${2?file undefined}
+    make -f "${MKLATEX_PATH}/cli/${module}" MKLATEX_INCLUDE_PRE=etc/make/common.mk "${file}"
+}
+
 # Get user input
-
-INPUT_FILE="${1}"
-
+FILE="${1}"
 # Perform file manipulation
-
-INPUT_FILE="$(infile2outfile "${INPUT_FILE}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
-INPUT_LOG="$(outfile2logfile "${INPUT_FILE}")"
-
-# Call the Makefile system and print result
-
-make -f ${MKLATEX_PATH}/cli/main.mk MKLATEX_INCLUDE_PRE=etc/make/common.mk "${INPUT_FILE}"
-cat "${INPUT_LOG}"
+FILE="$(infile2outfile "${FILE}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
+LOG="$(outfile2logfile "${FILE}")"
+# Call the Makefile system and cat log for editor parsing
+execmake "main.mk" "${FILE}"
+cat "${LOG}"
