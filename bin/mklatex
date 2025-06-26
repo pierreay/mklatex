@@ -1,36 +1,117 @@
 #!/usr/bin/env bash
+# Template UUID: 78304346-9828-4492-98e2-a7e1ffcd2cbf
 
-set -e   # Stop script if a command exit with non zero.
+# Global variables
+# ==============================================================================
 
-if [[ "${#}" -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
-    echo "Usage: $(basename $0) INPUT.tex"
-    echo "Description: Compile the input LaTeX document."
-    echo "Environment:"
-    echo -e "\tMKLATEX_PATH: Path of MKLaTeX."
-    echo -e "\tMKLATEX_SRC_DIR: Directory containing source files (required)."
-    echo -e "\tMKLATEX_BUILD_DIR: Directory containing build files (required)."
+# Program's options (switches).
+OPT_VERBOSE=false
+OPT_LOG=false
+OPT_SINGLE=false
+OPT_NOTES=false
+OPT_HANDOUT=false
+
+# Program's option-arguments (variables).
+# OPTARG_FILE="/dev/null"
+
+# Program's arguments.
+ARGS=""
+
+# Help
+# ==============================================================================
+
+# Program's help.
+function help() {
+    cat << EOF
+Usage: $(basename $0) [OPTIONS]... FILE.tex
+
+Compile the input LaTeX document.
+
+Options:
+    -h, --help          Show this help.
+    -v, --verbose       Enable verbose mode.
+    -l, --log           Show build log.
+    -s, --single        Only perform a single pass compilation.
+
+Options for Beamer:
+    --notes             Enable Beamer notes mode.
+    --handout           Enable Beamer handout mode.
+
+Environment:
+    MKLATEX_PATH        Path of MKLaTeX (required).
+    MKLATEX_SRC_DIR     Directory containing source files (required).
+    MKLATEX_BUILD_DIR   Directory containing build files (required).
+
+Exit status:
+  0     if OK,
+  1     if minor problem (e.g., warning),
+  2     if major problem (e.g., fatal error).
+
+Full documentation <https://URL>
+EOF
+}
+
+# If nothing is provided, show help and exit.
+if [[ $# -lt 1 ]]; then
+    help
     exit 1
 fi
 
-# NOTE: Must be set after optional $1 expansion.
-set -u   # Stop script if an empty variable is expanded.
+# Parsing
+# ==============================================================================
+
+# Let `getopt` parse the options/arguments following our specification below. 
+# NOTE:
+# - "f:" and "file:"  means that `-f` and `--file` are option-arguments.
+TEMP=$(getopt --options hvls                   \
+              --longoptions help,verbose,log,single,notes,handout \
+              -n "$(basename $0)" -- "$@")
+if [ $? != 0 ] ; then exit 2 ; fi
+# Set the output of `getopt` as the options/arguments of current program.
+eval set -- "$TEMP"
+
+# Iterate over all supplied options and option-arguments.
+while true; do
+  case "$1" in
+    -h | --help )
+      help
+      exit 0
+      ;;
+    -v | --verbose ) OPT_VERBOSE=true ; shift ;;
+    -l | --log     ) OPT_LOG=true     ; shift ;;
+    -s | --single  ) OPT_SINGLE=true  ; shift ;;
+    --notes        ) OPT_NOTES=true   ; shift ;;
+    --handout      ) OPT_HANDOUT=true ; shift ;;
+    -- ) shift ; break ;;
+    * ) break ;;
+  esac
+done
+
+# Get the remaining ARGS.
+ARGS=("${@}")
+
+# Stop script if an empty variable is expanded.
+set -u
+
+# Functions
+# ==============================================================================
 
 function infile2outfile() {
     local filepath="${1?filepath unset}"
     local dirin="${2?dirin unset}"
     local dirout="${3?dirout unset}"
 
-    # path substitution: src dir -> build dir
+    # Path substitution: src dir -> build dir
     if [[ "$(realpath "${filepath}")" =~ "$(realpath "${dirin}")" ]]; then
         filepath="$(echo "${filepath}" | sed "s/${dirin}\//${dirout}\//")"
     fi
 
-    # extension substitution: .tex -> .pdf
+    # Extension substitution: .tex -> .pdf
     if [[ "${filepath##*.}" == "tex" ]]; then
         filepath="$(echo "${filepath}" | sed 's/\.tex$/\.pdf/')"
     fi
 
-    # path conversion: absolute -> relative
+    # Path conversion: absolute -> relative
     if [[ "${filepath:0:1}" == "/" ]]; then
         filepath="$(realpath -s --relative-to="${PWD}" "${filepath}")"
     fi
@@ -39,7 +120,7 @@ function infile2outfile() {
 }
 
 function outfile2logfile() {
-    # extension substitution: .pdf -> .log
+    # Extension substitution: .pdf -> .log
     echo "${1?outfile unset}" | sed 's/\.pdf/\.log/'
 }
 
@@ -49,11 +130,23 @@ function execmake() {
     make -f "${MKLATEX_PATH}/cli/${module}" MKLATEX_INCLUDE_PRE=etc/make/common.mk "${file}"
 }
 
-# Get user input
-FILE="${1}"
-# Perform file manipulation
-FILE="$(infile2outfile "${FILE}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
-LOG="$(outfile2logfile "${FILE}")"
-# Call the Makefile system and cat log for editor parsing
-execmake "main.mk" "${FILE}"
-cat "${LOG}"
+# Program
+# ==============================================================================
+
+function main() {
+    # Get user input
+    local file="${ARGS[0]}"
+
+    # Perform file manipulation
+    file="$(infile2outfile "${file}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
+    local log="$(outfile2logfile "${file}")"
+
+    # Call the Makefile system and cat log for editor parsing
+    execmake "main.mk" "${file}"
+
+    if [[ "${OPT_LOG}" = true ]]; then
+        cat "${log}"
+    fi
+}
+
+main

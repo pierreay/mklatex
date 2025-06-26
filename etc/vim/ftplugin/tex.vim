@@ -33,7 +33,7 @@ let g:vimtex_compiler_method = 'generic'
 "   MKLaTeX does not support a special option to make it running
 "   continuous.
 let g:vimtex_compiler_generic = {
-            \   'command' : 'cd $MKLATEX_ROOT && mklatex @tex',
+            \   'command' : 'cd $MKLATEX_ROOT && mklatex -l @tex',
             \   'out_dir' : '../../build/tex',
             \   'continuous' : 0,
             \   'hooks' : [],
