@@ -12,6 +12,7 @@ all: $(BIB_SRC_FILES)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography is up-to-date!"
 
 printenv:
+	@echo BIBINPUTS=$(BIBINPUTS)
 	@echo BIB_REMOTE_PATH=$(BIB_REMOTE_PATH)
 	@echo BIB_REMOTE_CMD=$(BIB_REMOTE_CMD)
 	@echo BIB_SRC_DIR=$(BIB_SRC_DIR)
