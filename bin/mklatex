@@ -5,6 +5,9 @@ set -e   # Stop script if a command exit with non zero.
 if [[ "${#}" -lt 1 || "${1}" == "-h" || "${1}" == "--help" ]]; then
     echo "Usage: $(basename $0) INPUT.tex"
     echo "Description: Compile the input LaTeX document."
+    echo "Environment:"
+    echo -e "\tMKLATEX_SRC_DIR: Directory containing source files (required)."
+    echo -e "\tMKLATEX_BUILD_DIR: Directory containing build files (required)."
     exit 1
 fi
 
@@ -42,11 +45,6 @@ function outfile2logfile() {
 # Get user input
 
 INPUT_FILE="${1}"
-
-# Get variables from Makefile
-
-MKLATEX_SRC_DIR="$(grep -E "MKLATEX_SRC_DIR [:=]" "${MKLATEX_PATH}/lib/common.mk" | cut -d '=' -f 2 | awk '{print $1}')"
-MKLATEX_BUILD_DIR="$(grep -E "MKLATEX_BUILD_DIR [:=]" "${MKLATEX_PATH}/lib/common.mk" | cut -d '=' -f 2 | awk '{print $1}')"
 
 # Perform file manipulation
 

@@ -34,13 +34,15 @@ MAKEFLAGS += -j$(NPROCS)
 # --- Publics (defining superproject structure)
 
 # Build directory to do all the work.
-MKLATEX_BUILD_DIR := build
+# NOTE: Get from Bash environment.
+MKLATEX_BUILD_DIR := ${MKLATEX_BUILD_DIR}
 
 # Output directory for final file(s).
 MKLATEX_OUT_DIR := out
 
 # Source files directory (LaTeX, BibTeX, Graphics, Plots, etc.).
-MKLATEX_SRC_DIR := src
+# NOTE: Get from Bash environment.
+MKLATEX_SRC_DIR := ${MKLATEX_SRC_DIR}
 
 # Configuration files directory.
 MKLATEX_ETC_DIR := etc
