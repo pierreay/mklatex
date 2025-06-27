@@ -1,11 +1,37 @@
-```bash
-export MKLATEX_PATH=../../ ; make -f ../../cli/main.mk MKLATEX_INCLUDE_PRE=etc/make/common.mk all
-```
+# About
+
+XXX and derived presentations repository.
+
+# Building
+
+This presentation is built using [mklatex](https://github.com/pierreay/mklatex).
+
+## Initialization
 
 ```bash
-export MKLATEX_PATH=../../ ; make -f ../../cli/main.mk MKLATEX_INCLUDE_PRE=etc/make/common.mk build/tex/sec1.pdf
+git clone https://github.com/pierreay/XXX
+cd XXX
+git submodule update --init --recursive
 ```
 
+## Compilation
+
 ```bash
-export MKLATEX_PATH=../../ ; make -f ../../cli/main.mk MKLATEX_INCLUDE_PRE=etc/make/common.mk distclean
+source .env
+make
 ```
+
+## Versions
+
+Versions can be specified using the `MKLATEX_LATEX_VERSION_NAME` `make`
+variable or `--name` flag of `mklatex`.
+
+Supported versions are:
+- `conference40`: For knowledgeable public.
+    + 40 minutes presentation
+    + 10 minutes questions
+    + = 50 minutes total
+- `workshop20`: For specialist public.
+    + 20 minutes presentation
+    + 10 minutes questions
+    + = 30 minutes total
