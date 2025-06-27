@@ -4,7 +4,6 @@
 # Global variables
 # ==============================================================================
 
-# TODO: Add MKLATEX_LATEX_VERSION_NAME support
 # TODO: Add support of exporting an inkscape file (like arg1 mode for TeX but for Inkscape)
 
 # Working mode (see line number in `help()/Usage`).
@@ -21,6 +20,7 @@ OPT_HANDOUT=false
 
 # Program's option-arguments (variables).
 OPTARG_OUTFILE=""
+OPTARG_VERSIONNAME=""
 
 # Program's arguments.
 ARGS=""
@@ -44,7 +44,8 @@ Options:
     -l, --log                   Show build log.
     -s, --single                Only perform a single pass compilation.
     -c, --compress              Compress the PDF after compilation.
-    -o FILE, --outfile FILE     Output PDF file.
+    -o, --outfile FILE          Output PDF file.
+    -n, --name VERSIONNAME      Version name of the document.
     --ignorerc                  Ignore any .mklatexrc file (MUST be passed as
                                 first one to be recognized).
 
@@ -96,8 +97,8 @@ fi
 [[ "${1}" == "--ignorerc" ]] && shift
 
 # Let `getopt` parse the options/arguments following our specification below. 
-TEMP=$(getopt --options hvflsco:                                                                  \
-              --longoptions help,verbose,force,log,single,compress,outfile:,notes,handout \
+TEMP=$(getopt --options hvflsco:n:                                                              \
+              --longoptions help,verbose,force,log,single,compress,outfile:,name:,notes,handout \
               -n "$(basename $0)" -- "$@")
 if [ $? != 0 ] ; then exit 2 ; fi
 # Set the output of `getopt` as the options/arguments of current program.
@@ -110,14 +111,15 @@ while true; do
       help
       exit 0
       ;;
-    -v | --verbose  ) OPT_VERBOSE=true    ; shift   ;;
-    -f | --force    ) OPT_FORCE=true      ; shift   ;;
-    -l | --log      ) OPT_LOG=true        ; shift   ;;
-    -s | --single   ) OPT_SINGLE=true     ; shift   ;;
-    -c | --compress ) OPT_COMPRESS=true   ; shift   ;;
-    --notes         ) OPT_NOTES=true      ; shift   ;;
-    --handout       ) OPT_HANDOUT=true    ; shift   ;;
-    -o | --outfile  ) OPTARG_OUTFILE="$2" ; shift 2 ;;
+    -v | --verbose  ) OPT_VERBOSE=true        ; shift   ;;
+    -f | --force    ) OPT_FORCE=true          ; shift   ;;
+    -l | --log      ) OPT_LOG=true            ; shift   ;;
+    -s | --single   ) OPT_SINGLE=true         ; shift   ;;
+    -c | --compress ) OPT_COMPRESS=true       ; shift   ;;
+    --notes         ) OPT_NOTES=true          ; shift   ;;
+    --handout       ) OPT_HANDOUT=true        ; shift   ;;
+    -o | --outfile  ) OPTARG_OUTFILE="$2"     ; shift 2 ;;
+    -n | --name     ) OPTARG_VERSIONNAME="$2" ; shift 2 ;;
     -- ) shift ; break ;;
     * ) break ;;
   esac
@@ -180,6 +182,9 @@ function execmake() {
     fi
     if [[ ! -z "${OPTARG_OUTFILE}" ]]; then
         args+="LATEX_OUT_FILE=${OPTARG_OUTFILE} "
+    fi
+    if [[ ! -z "${OPTARG_VERSIONNAME}" ]]; then
+        args+="MKLATEX_LATEX_VERSION_NAME=${OPTARG_VERSIONNAME} "
     fi
 
     make -f "${MKLATEX_PATH}/cli/${module}" MKLATEX_INCLUDE_PRE=etc/make/common.mk ${args} "${file}"
