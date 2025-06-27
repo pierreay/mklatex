@@ -3,5 +3,6 @@ build/
 out/
 
 # Exclude private files.
+.mklatexrc
 .env.private
 etc/make/private.mk
