@@ -19,13 +19,60 @@ build-docker:
     - docker push $CI_REGISTRY_IMAGE:latest
     - echo "Docker image for mklatex done!"
 
-deploy-latex:
+# NOTE: Enable only if your GitLab Instance Runner allows more than 50MB artifact upload.
+# build-gfx:
+#   dependencies:
+#     - build-docker
+#   image: $CI_REGISTRY_IMAGE:latest
+#   stage: build
+#   script:
+#     # Mitigate `ERROR: Job failed: exit code 1` without apparent error.
+#     - set +o pipefail
+#     - git submodule update --init --recursive
+#     - source .env
+#     - mklatex drawio all
+#     - mklatex inkscape all
+#   artifacts:
+#     paths:
+#       - build/gfx/drawio/*.pdf
+#       - build/gfx/inkscape/*.pdf
+
+build-latex:
+  dependencies:
+    - build-docker
+    # - build-gfx
   image: $CI_REGISTRY_IMAGE:latest
-  stage: deploy
+  stage: build
   script:
+    # Mitigate `ERROR: Job failed: exit code 1` without apparent error.
+    - set +o pipefail
     - git submodule update --init --recursive
     - source .env
+    # NOTE: Compile figures independently such that it will be parallel even on
+    # Ubuntu.
+    - mklatex drawio all
+    - mklatex inkscape all
     - make all
   artifacts:
     paths:
       - out/*.pdf
+
+# See:
+# https://docs.gitlab.com/user/project/pages/
+pages:
+  dependencies:
+    - build-docker
+    # - build-gfx
+    - build-latex
+  image: $CI_REGISTRY_IMAGE:latest
+  stage: deploy
+  # Deploy the PDFs into the `public` directory.
+  script:
+    - mkdir public
+    - cp -t public out/*.pdf
+  artifacts:
+    paths: 
+      - public/
+  # Deploy the PDF only for commits made to the `master` branch.
+  # only: 
+  #   - master
