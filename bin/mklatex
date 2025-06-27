@@ -5,6 +5,7 @@
 # ==============================================================================
 
 # TODO: Add MKLATEX_LATEX_VERSION_NAME support
+# TODO: Add support of exporting an inkscape file (like arg1 mode for TeX but for Inkscape)
 
 # Working mode (see line number in `help()/Usage`).
 MODE=0
@@ -31,8 +32,8 @@ ARGS=""
 function help() {
     cat << EOF
 Usage:
-    $(basename $0) [OPTIONS]... FILE.tex
-    $(basename $0) [OPTIONS]... MODULE TARGET
+    $(basename $0) [--ignorerc] [OPTIONS]... FILE.tex
+    $(basename $0) [--ignorerc] [OPTIONS]... MODULE TARGET
 
 Compile the input LaTeX document or interact with Makefile's modules.
 
@@ -44,6 +45,8 @@ Options:
     -s, --single                Only perform a single pass compilation.
     -c, --compress              Compress the PDF after compilation.
     -o FILE, --outfile FILE     Output PDF file.
+    --ignorerc                  Ignore any .mklatexrc file (MUST be passed as
+                                first one to be recognized).
 
 Options for Beamer:
     --notes                     Enable Beamer notes mode.
@@ -84,17 +87,16 @@ fi
 # Parsing
 # ==============================================================================
 
-
-# If found, concatenate content of `.mklatexrc` with current command-line.
-if [[ -f ".mklatexrc" ]]; then
+# If found and not requested to ignore it, concatenate content of `.mklatexrc`
+# with current command-line.
+if [[ "${1}" != "--ignorerc" && -f ".mklatexrc" ]]; then
     echo "Read from .mklatexrc..."
     eval set -- "$(cat ".mklatexrc" | tr '\n' ' ')" "$@"
 fi
+[[ "${1}" == "--ignorerc" ]] && shift
 
 # Let `getopt` parse the options/arguments following our specification below. 
-# NOTE:
-# - "f:" and "file:"  means that `-f` and `--file` are option-arguments.
-TEMP=$(getopt --options hvflsco:                                                     \
+TEMP=$(getopt --options hvflsco:                                                                  \
               --longoptions help,verbose,force,log,single,compress,outfile:,notes,handout \
               -n "$(basename $0)" -- "$@")
 if [ $? != 0 ] ; then exit 2 ; fi
