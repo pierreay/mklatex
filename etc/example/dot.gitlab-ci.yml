@@ -1,0 +1,31 @@
+stages:
+  - build
+  - deploy
+
+build-docker:
+  image: ubuntu:24.04
+  stage: build
+  script:
+    - echo "Install Docker and Git..."
+    - apt-get update
+    - apt-get install -yq git docker.io docker-buildx
+    - echo "Fetch Dockerfile from mklatex and source environment..."
+    - git submodule update --init --recursive
+    - source .env
+    - echo "Start building Docker image for mklatex..."
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:latest $MKLATEX_PATH/etc/docker/ubuntu
+    - echo "Push resulting Docker image"
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - echo "Docker image for mklatex done!"
+
+deploy-latex:
+  image: $CI_REGISTRY_IMAGE:latest
+  stage: deploy
+  script:
+    - git submodule update --init --recursive
+    - source .env
+    - make all
+  artifacts:
+    paths:
+      - out/*.pdf
