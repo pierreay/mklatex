@@ -11,6 +11,7 @@ MODE=0
 
 # Program's options (switches).
 OPT_VERBOSE=false
+OPT_FORCE=false
 OPT_LOG=false
 OPT_SINGLE=false
 OPT_COMPRESS=false
@@ -38,6 +39,7 @@ Compile the input LaTeX document or interact with Makefile's modules.
 Options:
     -h, --help                  Show this help.
     -v, --verbose               Enable verbose mode.
+    -f, --force                 Force rebuild by touching the input file.
     -l, --log                   Show build log.
     -s, --single                Only perform a single pass compilation.
     -c, --compress              Compress the PDF after compilation.
@@ -81,8 +83,8 @@ fi
 # Let `getopt` parse the options/arguments following our specification below. 
 # NOTE:
 # - "f:" and "file:"  means that `-f` and `--file` are option-arguments.
-TEMP=$(getopt --options hvlsco:                                                     \
-              --longoptions help,verbose,log,single,compress,outfile:,notes,handout \
+TEMP=$(getopt --options hvflsco:                                                     \
+              --longoptions help,verbose,force,log,single,compress,outfile:,notes,handout \
               -n "$(basename $0)" -- "$@")
 if [ $? != 0 ] ; then exit 2 ; fi
 # Set the output of `getopt` as the options/arguments of current program.
@@ -96,6 +98,7 @@ while true; do
       exit 0
       ;;
     -v | --verbose  ) OPT_VERBOSE=true    ; shift   ;;
+    -f | --force    ) OPT_FORCE=true      ; shift   ;;
     -l | --log      ) OPT_LOG=true        ; shift   ;;
     -s | --single   ) OPT_SINGLE=true     ; shift   ;;
     -c | --compress ) OPT_COMPRESS=true   ; shift   ;;
@@ -174,14 +177,19 @@ function execmake() {
 
 function main_arg1() {
     # Get user input.
-    local file="${ARGS[0]}"
+    local infile="${ARGS[0]}"
 
     # Perform file manipulation to get target output file.
-    file="$(infile2outfile "${file}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
-    local log="$(outfile2logfile "${file}")"
+    local outfile="$(infile2outfile "${infile}" "${MKLATEX_SRC_DIR}" "${MKLATEX_BUILD_DIR}")"
+    local log="$(outfile2logfile "${outfile}")"
+
+    # Perform pre-build actions based on options and arguments.
+    if [[ "${OPT_FORCE}" = true ]]; then
+        touch ${infile}
+    fi
 
     # Call the Makefile system.
-    execmake "main.mk" "${file}"
+    execmake "main.mk" "${outfile}"
 
     # Show log if requested (mainly for editor parsing).
     if [[ "${OPT_LOG}" = true ]]; then
