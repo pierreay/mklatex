@@ -10,13 +10,6 @@
   `$PATH`) and providing autocompletion.
 - [ ] Add an install script [inspired from this one](https://github.com/tomups/worktrees-scripts/blob/main/install.sh).
 
-# Build System
-
-- [ ] Create a continuous integration on GitHub using one of the Docker image
-  for building document. See:
-  - [How to annoy your co-authors_ a Gitlab CI pipeline for LaTeX - Martin’s blog](https://blog.martisak.se/2020/05/11/gitlab-ci-latex-pipeline/)
-  - [Continuous Integration of LaTeX projects with GitLab Pages · Vipin Ajayakumar](https://www.vipinajayakumar.com/continuous-integration-of-latex-projects-with-gitlab-pages.html).
-
 # Tooling Support
 
 - [ ] Add support of `tikzplotlib`? See:
