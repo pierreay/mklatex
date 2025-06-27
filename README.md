@@ -10,7 +10,7 @@ Modular self-contained LaTeX build system.
 - Keep organized:
   - Out-of-tree build
   - Multiple source file handling
-  - Multiple document version handling
+  - Multiple document version handling (see [1])
 - Fast to use:
   - Parallel
   - Autocompletion
@@ -23,6 +23,8 @@ Modular self-contained LaTeX build system.
   - Articles
   - Thesis
   - Slides (animated through LaTeX & Inkscape)
+
+[1] Examples are 1) lecturer/student versions for classes 2) animated/handout/notes version for slides 3) 20/30 minutes versions for talks.
 
 ## Support
 
