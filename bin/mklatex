@@ -62,6 +62,10 @@ Environment:
     MKLATEX_SRC_DIR             Directory containing source files (required).
     MKLATEX_BUILD_DIR           Directory containing build files (required).
 
+Files:
+    .mklatexrc                  If found in working directory, read command-line options
+                                and arguments from it (one per line).
+
 Exit status:
   0     if OK,
   1     if minor problem (e.g., warning),
@@ -79,6 +83,13 @@ fi
 
 # Parsing
 # ==============================================================================
+
+
+# If found, concatenate content of `.mklatexrc` with current command-line.
+if [[ -f ".mklatexrc" ]]; then
+    echo "Read from .mklatexrc..."
+    eval set -- "$(cat ".mklatexrc" | tr '\n' ' ')" "$@"
+fi
 
 # Let `getopt` parse the options/arguments following our specification below. 
 # NOTE:
