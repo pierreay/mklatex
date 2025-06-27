@@ -1,3 +1,9 @@
+# Organization
+
+- [ ] Merge inkscape2latex into this repository and rename it to inkscape2pdf
+  - [ ] Use sidecar file instead of shared file for layer definition.
+  - [ ] Use YAML or TOML instead of JSON? 
+
 # Design
 
 - [ ] Refactor CLI by using dedicated scripts in `bin/` (to be added in
