@@ -1,2 +1,4 @@
 etc/docker/ubuntu/.dockerinit
 etc/docker/archlinux/.dockerinit
+etc/example/out/
+etc/example/build/
