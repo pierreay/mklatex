@@ -36,7 +36,7 @@ Provides support for the following external software:
 | Editor                      | [Vim](https://www.vim.org/) & [NeoVim](https://neovim.io/)'s [VimTeX](https://github.com/lervag/vimtex)                    |
 | Container                   | [Docker](https://www.docker.com/)                                                                                          |
 | Drawing                     | [DrawIO](https://www.drawio.com/)                                                                                          |
-| Drawing                     | [Inkscape](https://inkscape.org/)                                                                                          |
+| Drawing                     | [Inkscape](https://inkscape.org/) + [ScapeX](https://github.com/pierreay/scapex)                                           |
 | Bibliography                | [Papis](https://github.com/papis/papis)                                                                                    |
 | Post-processing             | [GhostScript](https://www.ghostscript.com/)                                                                                |
 | Continuous Integration (CI) | [GitLab](https://gitlab.com/)                                                                                              |
