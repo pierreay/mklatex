@@ -1,0 +1,12 @@
+[params]
+# Set the font rendering engine ["latex" | "inkscape"]
+fonts_engine = "latex"
+# Enable or disable fragments exportation [false | true]
+fragments = false
+
+[fragments.step1]
+excluded_layers = ["step2", "step3"]
+[fragments.step2]
+excluded_layers = ["step3"]
+[fragments.step3]
+excluded_layers = []
