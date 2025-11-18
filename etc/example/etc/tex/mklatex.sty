@@ -35,9 +35,10 @@
 % Examples:
 % \inputinkscape{draw.pdf_tex}
 % \inputinkscape[.5]{draw.pdf_tex}
+% NOTE: Not needed to use `\gfxInkscapePath` since `\graphicspath` is set
 \newcommand{\inputinkscape}[2][.95]{
   \def\svgwidth{#1\linewidth}
-  \input{\gfxInkscapePath/#2}
+  \input{#2}
 }
 
 % TODO: Add a new command to handle using an Inkscape diagram as a background (e.g., in Beamer:)
