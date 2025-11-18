@@ -1,16 +1,15 @@
-# Organization
+# ONGOING
 
-- [ ] Merge inkscape2latex into this repository and rename it to inkscape2pdf
-  - [ ] Use sidecar file instead of shared file for layer definition.
-  - [ ] Use YAML or TOML instead of JSON? 
-
-# Design
-
-- [ ] Refactor CLI by using dedicated scripts in `bin/` (to be added in
+- [-] Refactor CLI by using dedicated scripts in `bin/` (to be added in
   `$PATH`) and providing autocompletion.
+
+# TODO
+
+## Design
+
 - [ ] Add an install script [inspired from this one](https://github.com/tomups/worktrees-scripts/blob/main/install.sh).
 
-# Tooling Support
+## Tooling Support
 
 - [ ] Add support of `tikzplotlib`? See:
   - [Create publication ready figures with Matplotlib and TikZ - Martin’s blog](https://blog.martisak.se/2019/09/29/publication_ready_figures/).
