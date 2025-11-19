@@ -20,3 +20,9 @@
   export and dependency management. The only missing option is layered
   export. See:
   - [svg-inkscape](https://www.ctan.org/pkg/svg-inkscape) 
+
+## Vim Interface
+
+- Allow opening managed files with `gf` (*e.g.*, figures with `\inputinkscape`)
+  1. Execute `set path+=src/gfx/inkscape`
+  2. Create a function that will strip ScapeX fragments (`[@.*].pdf`) and substitute the `.pdf_tex` with `.svg`
