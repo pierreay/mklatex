@@ -15,6 +15,7 @@ OPT_SINGLE=false
 OPT_COMPRESS=false
 OPT_NOTES=false
 OPT_HANDOUT=false
+OPT_OPEN=false
 
 # Program's option-arguments (variables).
 OPTARG_OUTFILE=""
@@ -44,6 +45,8 @@ Options:
     -c, --compress              Compress the PDF after compilation.
     -o, --outfile FILE          Output PDF file.
     -n, --name VERSIONNAME      Version name of the document.
+    --open                      Open the PDF viewer from the PDFVIEWER environment
+                                variable once build is done.
     --ignorerc                  Ignore any .mklatexrc file (MUST be passed as
                                 first one to be recognized).
 
@@ -95,8 +98,8 @@ fi
 [[ "${1}" == "--ignorerc" ]] && shift
 
 # Let `getopt` parse the options/arguments following our specification below. 
-TEMP=$(getopt --options hvflsco:n:                                                              \
-              --longoptions help,verbose,force,log,single,compress,outfile:,name:,notes,handout \
+TEMP=$(getopt --options hvflsco:n:                                                                   \
+              --longoptions help,verbose,force,log,single,compress,outfile:,name:,notes,handout,open \
               -n "$(basename $0)" -- "$@")
 if [ $? != 0 ] ; then exit 2 ; fi
 # Set the output of `getopt` as the options/arguments of current program.
@@ -116,6 +119,7 @@ while true; do
     -c | --compress ) OPT_COMPRESS=true       ; shift   ;;
     --notes         ) OPT_NOTES=true          ; shift   ;;
     --handout       ) OPT_HANDOUT=true        ; shift   ;;
+    --open          ) OPT_OPEN=true           ; shift   ;;
     -o | --outfile  ) OPTARG_OUTFILE="$2"     ; shift 2 ;;
     -n | --name     ) OPTARG_VERSIONNAME="$2" ; shift 2 ;;
     -- ) shift ; break ;;
@@ -210,6 +214,11 @@ function main_arg1() {
     # Show log if requested (mainly for editor parsing).
     if [[ "${OPT_LOG}" = true ]]; then
         cat "${log}"
+    fi
+
+    # Open PDF viewer if requested.
+    if [[ "${OPT_OPEN}" = true ]]; then
+        eval "${PDFVIEWER}" "${outfile}"
     fi
 }
 
