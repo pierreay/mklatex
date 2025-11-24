@@ -218,7 +218,7 @@ function main_arg1() {
 
     # Open PDF viewer if requested.
     if [[ "${OPT_OPEN}" = true ]]; then
-        eval "${PDFVIEWER}" "${outfile}"
+        eval "${PDFVIEWER}" "${outfile}" & >/dev/null 2>&1
     fi
 }
 
