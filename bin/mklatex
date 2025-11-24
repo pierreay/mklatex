@@ -4,8 +4,6 @@
 # Global variables
 # ==============================================================================
 
-# TODO: Add support of exporting an inkscape file (like arg1 mode for TeX but for Inkscape)
-
 # Working mode (see line number in `help()/Usage`).
 MODE=0
 
