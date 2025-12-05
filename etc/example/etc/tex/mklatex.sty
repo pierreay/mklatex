@@ -14,6 +14,9 @@
 % Drawio figures path.
 \newcommand{\gfxDrawioPath}{\directlua{tex.write(os.getenv("DRAWIO_BUILD_DIR"))}}
 
+% SVG figures path.
+\newcommand{\gfxSvgPath}{\directlua{tex.write(os.getenv("MKLATEX_GFX_PATH"))}/svg}
+
 % Bibliography path.
 \newcommand{\bibPath}{\directlua{tex.write(os.getenv("BIB_SRC_DIR"))}}
 
@@ -69,6 +72,7 @@
 
 \RequirePackage{subfiles}
 \RequirePackage{graphicx}
+\RequirePackage{svg}
 \RequirePackage{biblatex}
 % String comparisons (e.g., \IfStrEq).
 \RequirePackage{xstring}
@@ -85,6 +89,14 @@
 % `.[pdf|eps]_tex` files which only include the file basename.
 % Note that it support multiple directories.
 \graphicspath{{\gfxInkscapePath{}}}
+
+% List of root paths where SVG files are searched by `svg` package.
+% Every path has to be given in a group of braces {} and should terminate with
+% a slash. Automatically add `\graphicspath` and the current working directory.
+% NOTE: The given path is relative to the current working directory when building
+% i.e., `$LATEX_BUILD_DIR`
+% e.g., `build/tex`
+\svgpath{{../../\gfxSvgPath}}
 
 % NOTE: Search path is set by `BIBINPUTS` environment variable.
 \addbibresource{references.bib}

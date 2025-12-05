@@ -48,7 +48,8 @@ MKLATEX_SRC_DIR := ${MKLATEX_SRC_DIR}
 MKLATEX_ETC_DIR := etc
 
 # Graphics path.
-MKLATEX_GFX_PATH := $(MKLATEX_SRC_DIR)/gfx
+# NOTE: Export for `mklatex.sty`
+export MKLATEX_GFX_PATH := $(MKLATEX_SRC_DIR)/gfx
 
 # Delete all out-of-tree build and output directories. 
 MKLATEX_DISTCLEAN_DIRS += $(MKLATEX_BUILD_DIR) $(MKLATEX_OUT_DIR)
