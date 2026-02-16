@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip ap
 # TeX Live distribution:
 RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool
 
+# TeX Live dependencies:
+RUN apt-get update && apt-get install -yq python3-pygments
+
 # ScapeX:
 RUN apt-get update && apt-get install -yq pipx && pipx install scapex
 

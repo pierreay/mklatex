@@ -11,6 +11,9 @@ RUN pacman -Syyu --noconfirm base-devel python-pip git
 # TeX Live distribution:
 RUN pacman -Syyu --noconfirm texlive texlive-langfrench biber bibtool
 
+# TeX Live dependencies:
+RUN pacman -Syyu --noconfirm python-pygments
+
 # ScapeX:
 RUN pacman -Syyu --noconfirm python-pipx && pipx install scapex
 
