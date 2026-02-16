@@ -66,9 +66,9 @@ CURL
 ```
 
 3. This script will automatically:
-  1. Add the `mklatex` repository as a submodule (without committing, you will be free to move it)
-  2. Setup the minimal working environment from `./etc/example`
-  3. Install the Python dependencies using `pipx`
+    1. Add the `mklatex` repository as a submodule (without committing, you will be free to move it)
+    2. Setup the minimal working environment from `./etc/example`
+    3. Install the Python dependencies using `pipx`
 
 ## As a `git` submodule for a self-contained project
 
