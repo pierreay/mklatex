@@ -89,7 +89,7 @@ LATEX_RERUNGLOSSARY_REGEX := 'Glossary.*is missing'
 # Regular expression matching a fatal error.
 # Beware that long file names contained in an error message can make this one
 # end up on a newline.
-LATEX_CHECKERR_REGEX := 'Emergency stop|Runaway argument|^! LaTeX Error: |! Package.*Error|Missing.*inserted|^! \(Inkscape\).*|[!:] Undefined control.*|^LaTeX Warning: '
+LATEX_CHECKERR_REGEX := 'Emergency stop|Runaway argument|[!:] LaTeX Error: |[!:] Package.*Error|Missing.*inserted|[!:] \(Inkscape\).*|[!:] Undefined control.*|LaTeX Warning: '
 
 # Post-processing 
 # ------------------------------------------------------------------------------
