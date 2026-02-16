@@ -20,6 +20,7 @@ mkdir -p src/bib
 mkdir -p src/gfx/inkscape
 mkdir -p src/gfx/drawio
 mkdir -p etc/tex
+mkdir -p etc/make
 
 echo "[+] Install local build files..."
 install_file Makefile Makefile
