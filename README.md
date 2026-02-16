@@ -63,8 +63,7 @@ Provides support for the following LaTeX packages or addons:
 2. Run the following:
 
 ```bash
-# curl https://github.com/pierreay/mklatex/utils/install.sh | bash
-curl https://raw.githubusercontent.com/pierreay/mklatex/refs/heads/feat/install-script/utils/install.sh | bash
+curl https://github.com/pierreay/mklatex/utils/install.sh | bash
 ```
 
 3. This script will automatically:
