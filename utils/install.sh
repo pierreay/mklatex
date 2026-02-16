@@ -33,3 +33,4 @@ install_file dot.mklatexrc .mklatexrc
 install_file etc/tex/mklatex.sty etc/tex/mklatex.sty
 install_file etc/make/common.mk etc/make/common.mk
 install_file etc/make/private.mk etc/make/private.mk
+install_file src/tex/main.tex src/tex/main.tex
