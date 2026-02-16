@@ -93,7 +93,8 @@ fi
 # with current command-line.
 if [[ "${1}" != "--ignorerc" && -f ".mklatexrc" ]]; then
     echo "Read from .mklatexrc..."
-    eval set -- "$(cat ".mklatexrc" | tr '\n' ' ')" "$@"
+    # sed: Remove lines starting with `#` being comments
+    eval set -- "$(cat ".mklatexrc" | tr '\n' ' ' | sed '/^#/d' )" "$@"
 fi
 [[ "${1}" == "--ignorerc" ]] && shift
 
