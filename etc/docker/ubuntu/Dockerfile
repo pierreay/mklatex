@@ -4,6 +4,8 @@ FROM ubuntu:24.04
 ENV MKLATEX_DOCKER_GUEST=true
 # Automatically answer yes for APT questions.
 ENV DEBIAN_FRONTEND=noninteractive
+# Update `PATH` with local binaries installed by the `root` user
+ENV PATH="$PATH:/root/.local/bin"
 
 # Base tools:
 RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip apt-file

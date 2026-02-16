@@ -1,5 +1,7 @@
 FROM archlinux:latest
 
+# TODO: If needed, update PATH to find `scapex`. Refer to `ubuntu/Dockerfile`.
+
 # For easy check about being inside Docker or not.
 ENV MKLATEX_DOCKER_GUEST=true
 
