@@ -56,6 +56,22 @@ Provides support for the following LaTeX packages or addons:
 
 # Installation
 
+## From GitHub
+
+1. Change directory into your LaTeX repository
+
+2. Run the following:
+
+```bash
+# curl https://github.com/pierreay/mklatex/utils/install.sh | bash
+curl https://raw.githubusercontent.com/pierreay/mklatex/refs/heads/feat/install-script/utils/install.sh | bash
+```
+
+3. This script will automatically:
+    1. Add the `mklatex` repository as a submodule (without committing, you will be free to move it)
+    2. Setup the minimal working environment from `./etc/example`
+    3. Install the Python dependencies using `pipx`
+
 ## As a `git` submodule for a self-contained project
 
 ```bash
