@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip ap
 # TeX Live distribution:
 RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool
 
-# Dependency for our Inkscape exporter script:
-RUN apt-get update && apt-get install -yq jq bc
+# ScapeX:
+RUN apt-get update && apt-get install -yq pipx && pipx install scapex
 
 # Dependencies for our Makefile processing:
 RUN apt-get update && apt-get install -yq ghostscript imagemagick

@@ -9,11 +9,11 @@ RUN pacman -Syyu --noconfirm base-devel python-pip git
 # TeX Live distribution:
 RUN pacman -Syyu --noconfirm texlive texlive-langfrench biber bibtool
 
+# ScapeX:
+RUN pacman -Syyu --noconfirm python-pipx && pipx install scapex
+
 # Drawing tools:
 RUN pacman -Syyu --noconfirm inkscape drawio-desktop
-
-# Dependency for our Inkscape exporter script:
-RUN pacman -Syyu --noconfirm jq bc
 
 # Dependency for our DrawIO exporter script:
 RUN pacman -Syyu --noconfirm xorg-server-xvfb
