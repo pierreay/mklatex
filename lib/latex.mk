@@ -14,6 +14,10 @@ export PATH = $(shell echo /usr/bin/vendor_perl:$$PATH)
 # - Packages assuming files in current directory (e.g., `makeindex`).
 export TEXINPUTS = ${PWD}//:
 
+# Increase maximum column number from 80 to 1000 for `pdflatex` or `lualatex` logging file
+# This will makes the parsing of errors easier
+export max_print_line = 1000
+
 # Variables
 # ==============================================================================
 
