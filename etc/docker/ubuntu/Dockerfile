@@ -6,9 +6,11 @@ ENV MKLATEX_DOCKER_GUEST=true
 ENV DEBIAN_FRONTEND=noninteractive
 # Update `PATH` with local binaries installed by the `root` user
 ENV PATH="$PATH:/root/.local/bin"
+# Defines default PDF viewer for `mklatex`
+ENV PDFVIEWER="zathura"
 
 # Base tools:
-RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip apt-file
+RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip apt-file x11-apps zathura
 
 # TeX Live distribution:
 RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool

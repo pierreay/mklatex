@@ -4,9 +4,11 @@ FROM archlinux:latest
 
 # For easy check about being inside Docker or not.
 ENV MKLATEX_DOCKER_GUEST=true
+# Defines default PDF viewer for `mklatex`
+ENV PDFVIEWER="zathura"
 
 # Base tools:
-RUN pacman -Syyu --noconfirm base-devel python-pip git
+RUN pacman -Syyu --noconfirm base-devel python-pip git xclock-xorg zathura
 
 # TeX Live distribution:
 RUN pacman -Syyu --noconfirm texlive texlive-langfrench biber bibtool
