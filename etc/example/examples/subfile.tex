@@ -1,0 +1,22 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               HOW TO USE                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 1. Copy this subfile to `src/tex/FILE.tex`
+% 2. Include this subfile in a top-level file using:
+% \subfile{FILE.tex}
+
+\documentclass[src/tex/main.tex]{subfiles}
+\begin{document}
+
+\section{My Subfile}
+
+\ifSubfilesClassLoaded{
+	This is executed only when the \verb+subfile+ is the compilation target.
+    \lipsum[0-4]
+}{
+    This is executed only when the \verb+subfile+ is \textbf{not} the compilation target.
+    \lipsum[0-1]
+}
+
+\end{document}
