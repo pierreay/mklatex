@@ -7,12 +7,6 @@
 % Variables
 % ==============================================================================
 
-% Bibliography package
-\newcommand{\mklatexBibliographyPackage}{\directlua{tex.write(os.getenv("MKLATEX_BIB_PKG"))}}
-% Defines constants through `\directlua` to match the underlying type in future `if-else` statements
-\newcommand{\mklatexBibliographyPackageBibLaTeX}{\directlua{tex.write("biblatex")}}
-\newcommand{\mklatexBibliographyPackageNatBiB}{\directlua{tex.write("natbib")}}
-
 % Paths
 % ------------------------------------------------------------------------------
 % The following paths are specified from the `TEXINPUTS` variables.
@@ -87,7 +81,7 @@
 
 % Load BibLaTeX if needed
 % Natbib is loaded later, in main document
-\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageBibLaTeX}}{
+\ifthenelse{\equal{\mklatexBibliographyPackage}{biblatex}}{
   \RequirePackage{biblatex}
 }{}
 
@@ -116,6 +110,6 @@
 \svgpath{{../../\gfxSvgPath}}
 
 % NOTE: Search path is set by `BIBINPUTS` environment variable.
-\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageBibLaTeX}}{
+\ifthenelse{\equal{\mklatexBibliographyPackage}{biblatex}}{
   \addbibresource{references.bib}
 }{}

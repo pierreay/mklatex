@@ -11,7 +11,7 @@
 
 % NOTE: Load Natbib it here instead of inside `mklatex.sty`
 % Because if using a `\RequirePackage`, it throws an `Undefined control sequence` error for an unknown reason
-\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageNatBiB}}{
+\ifthenelse{\equal{\mklatexBibliographyPackage}{natbib}}{
   \usepackage{natbib}
 }{}
 
@@ -27,7 +27,7 @@ Example file of MkLaTeX.
 \subfile{\texSrcPath/sec1.tex}
 \subfile{\texSrcPath/sec2.tex}
 
-\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageNatBiB}}{
+\ifthenelse{\equal{\mklatexBibliographyPackage}{natbib}}{
   \bibliographystyle{plain}
   \bibliography{references.bib}
 }{

@@ -114,6 +114,12 @@ ifdef MKLATEX_LATEX_VERSION_NAME
 LATEX_CC_FIRSTLINE += \def\mklatexLatexVersionName{$(MKLATEX_LATEX_VERSION_NAME)}
 endif
 
+# --- Bibliography
+
+ifdef MKLATEX_BIB_PKG
+LATEX_CC_FIRSTLINE += \def\mklatexBibliographyPackage{${MKLATEX_BIB_PKG}}
+endif
+
 # --- Beamer
 
 # Handling handout setting.
