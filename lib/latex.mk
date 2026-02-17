@@ -70,7 +70,11 @@ LATEX_CC_ARGS_FINAL = -file-line-error -shell-escape -interaction=batchmode --ha
 
 # Bibliography processor.
 # [biber | bibtex]
+ifeq (${MKLATEX_BIB_PKG},natbib)
+LATEX_BIB_CC_BIN = bibtex
+else
 LATEX_BIB_CC_BIN = biber
+endif
 
 # Glossary and index processor.
 LATEX_GLOSSARY_CC_BIN = makeglossaries
