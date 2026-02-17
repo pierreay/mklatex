@@ -9,9 +9,11 @@
 
 \documentclass[paper=a4,fontsize=11pt]{article}
 
-% Uncomment to switch to natbib:
-% NOTE: Load it here instead of inside `mklatex.sty` using a `\RequirePackage`, otherwise it throws an `Undefined control sequence` error
-\usepackage{natbib}
+% NOTE: Load Natbib it here instead of inside `mklatex.sty`
+% Because if using a `\RequirePackage`, it throws an `Undefined control sequence` error for an unknown reason
+\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageNatBiB}}{
+  \usepackage{natbib}
+}{}
 
 \begin{document}
 
@@ -25,9 +27,11 @@ Example file of MkLaTeX.
 \subfile{\texSrcPath/sec1.tex}
 \subfile{\texSrcPath/sec2.tex}
 
-% Uncomment to switch to natbib:
-\bibliographystyle{plain}
-\bibliography{references.bib}
-% \printbibliography{}
+\ifthenelse{\equal{\mklatexBibliographyPackage}{\mklatexBibliographyPackageNatBiB}}{
+  \bibliographystyle{plain}
+  \bibliography{references.bib}
+}{
+  \printbibliography{}
+}
 
 \end{document}
