@@ -69,6 +69,7 @@ LATEX_CC_ARGS_DRAFT = -file-line-error -shell-escape -interaction=batchmode --ha
 LATEX_CC_ARGS_FINAL = -file-line-error -shell-escape -interaction=batchmode --halt-on-error --synctex=1
 
 # Bibliography processor.
+# [biber | bibtex]
 LATEX_BIB_CC_BIN = biber
 
 # Glossary and index processor.
@@ -181,7 +182,13 @@ $(LATEX_BUILD_DIR)/%.glg: .FORCE_RERUN
 # Running condition is detected using LaTeX logs by caller, so it has to be forced run.
 $(LATEX_BUILD_DIR)/%.bbl: .FORCE_RERUN
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography build..."
+ifeq ($(LATEX_BIB_CC_BIN),biber)
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Use Biber backend"
 	$(LATEX_BIB_CC_BIN) --output-directory=$$(dirname $@) $(patsubst %.bbl,%.bcf,$@)
+else
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Use BibTeX backend"
+	cd $$(dirname $@) && $(LATEX_BIB_CC_BIN) $$(basename $(patsubst %.bbl,%.aux,$@))
+endif
 
 # Post-processing (mainly compression).
 $(MKLATEX_BUILD_DIR)/%.pdf: $(LATEX_BUILD_DIR)/%.pdf | $(MKLATEX_BUILD_DIR)
