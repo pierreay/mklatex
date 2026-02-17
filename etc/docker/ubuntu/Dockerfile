@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-la
 # TeX Live dependencies:
 RUN apt-get update && apt-get install -yq python3-pygments
 
+# Fonts:
+RUN apt-get update && apt-get install -yq fonts-linuxlibertine
+
 # ScapeX:
 RUN apt-get update && apt-get install -yq pipx && pipx install scapex
 

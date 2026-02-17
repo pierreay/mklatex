@@ -16,6 +16,9 @@ RUN pacman -Syyu --noconfirm texlive texlive-langfrench biber bibtool
 # TeX Live dependencies:
 RUN pacman -Syyu --noconfirm python-pygments
 
+# Fonts:
+RUN pacman -Syyu --noconfirm ttf-linux-libertine
+
 # ScapeX:
 RUN pacman -Syyu --noconfirm python-pipx && pipx install scapex
 
