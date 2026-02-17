@@ -180,6 +180,7 @@ $(LATEX_BUILD_DIR)/%.glg: .FORCE_RERUN
 
 # Bibliography build.
 # Running condition is detected using LaTeX logs by caller, so it has to be forced run.
+# NOTE: BibTeX needs one more run than Biber, therefore, run it there
 $(LATEX_BUILD_DIR)/%.bbl: .FORCE_RERUN
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Bibliography build..."
 ifeq ($(LATEX_BIB_CC_BIN),biber)
@@ -188,6 +189,8 @@ ifeq ($(LATEX_BIB_CC_BIN),biber)
 else
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Use BibTeX backend"
 	cd $$(dirname $@) && $(LATEX_BIB_CC_BIN) $$(basename $(patsubst %.bbl,%.aux,$@))
+	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 2/3:"
+	cd $$(dirname $@) && $(LATEX_CC_BIN) $(LATEX_CC_ARGS_DRAFT) "$(LATEX_CC_FIRSTLINE)\input{$(patsubst $(LATEX_BUILD_DIR)/%.bbl,$(LATEX_SRC_DIR)/%,$@)}"
 endif
 
 # Post-processing (mainly compression).
