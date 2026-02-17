@@ -13,7 +13,7 @@ ENV PDFVIEWER="zathura"
 RUN apt-get update && apt-get install -yq git vim python3-pip sudo wget unzip apt-file x11-apps zathura
 
 # TeX Live distribution:
-RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science biber bibtool
+RUN apt-get update && apt-get install -yq texlive texlive-lang-french texlive-latex-extra texlive-fonts-extra texlive-luatex texlive-science texlive-publishers biber bibtool
 
 # TeX Live dependencies:
 RUN apt-get update && apt-get install -yq python3-pygments

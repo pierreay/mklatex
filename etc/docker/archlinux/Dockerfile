@@ -11,7 +11,7 @@ ENV PDFVIEWER="zathura"
 RUN pacman -Syyu --noconfirm base-devel python-pip git xclock-xorg zathura
 
 # TeX Live distribution:
-RUN pacman -Syyu --noconfirm texlive texlive-langfrench biber bibtool
+RUN pacman -Syyu --noconfirm texlive texlive-basic texlive-plaingeneric texlive-latex texlive-latexrecommended texlive-latexextra texlive-binextra texlive-bibtexextra texlive-fontsrecommended texlive-fontsextra texlive-publishers texlive-mathscience texlive-langfrench texlive-langgreek biber bibtool
 
 # TeX Live dependencies:
 RUN pacman -Syyu --noconfirm python-pygments
