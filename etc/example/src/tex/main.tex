@@ -9,6 +9,10 @@
 
 \documentclass[paper=a4,fontsize=11pt]{article}
 
+% Uncomment to switch to natbib:
+% NOTE: Load it here instead of inside `mklatex.sty` using a `\RequirePackage`, otherwise it throws an `Undefined control sequence` error
+\usepackage{natbib}
+
 \begin{document}
 
 \title{MKLaTeX Example}
@@ -21,6 +25,9 @@ Example file of MkLaTeX.
 \subfile{\texSrcPath/sec1.tex}
 \subfile{\texSrcPath/sec2.tex}
 
-\printbibliography{}
+% Uncomment to switch to natbib:
+\bibliographystyle{plain}
+\bibliography{references.bib}
+% \printbibliography{}
 
 \end{document}
