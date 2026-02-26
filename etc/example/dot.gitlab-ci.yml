@@ -6,6 +6,13 @@ stages:
   - build
   - deploy
 
+# Build the `mklatex` Docker image within the GitLab runner.
+# NOTE:
+  # Pros: the Docker image will be updated automatically as soon as the Dockerfile will be updated
+  # Cons: the Docker image will be rebuild at each pipeline run, which is long
+  # Workaround:
+  #   1) Disable this `build-docker` stage
+  #   2) Manually build and push the Docker image on Dockerfile update
 build-docker:
   image: ubuntu:24.04
   stage: build
