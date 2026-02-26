@@ -3,6 +3,9 @@
 
 ---
 
+[![CI/CD Pipeline Status](https://gitlab.laas.fr/USER/REPOSITORY/badges/BRANCH/pipeline.svg)](https://gitlab.laas.fr/USER/REPOSITORY/-/commits/BRANCH)
+[![Latest Release](https://gitlab.laas.fr/USER/REPOSITORY/-/badges/release.svg)](https://gitlab.laas.fr/USER/REPOSITORY/-/releases)
+
 # FILES
 
 - [build](./build): Build directory (PDFs from LaTeX, DrawIO, Inkscape)
