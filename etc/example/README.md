@@ -29,8 +29,8 @@ For **editing** the source code:
 - Use the advanced [Gitlab Web IDE](https://docs.gitlab.com/user/project/web_ide/) (press `.` to open it instantly from the project repository page)
 
 For **viewing** the compiled document:
-- [Open](https://gitlab.laas.fr/pierreay/emsok/-/jobs/artifacts/master/browse?job=build-latex) the latest build as PDF file (browse under the `out/` directory)
-- [Download](https://gitlab.laas.fr/pierreay/emsok/-/jobs/artifacts/master/download?job=build-latex) the latest build as ZIP file
+- [Open](https://DOMAIN.TLD/USER/REPOSITORY/-/jobs/artifacts/BRANCH/browse?job=JOB_NAME) the latest build as PDF file (browse under the `out/` directory)
+- [Download](https://DOMAIN.TLD/USER/REPOSITORY/-/jobs/artifacts/BRANCH/download?job=JOB_NAME) the latest build as ZIP file
 
 ## Local environment
 
