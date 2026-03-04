@@ -8,13 +8,22 @@
 
 # FILES
 
-- [build](./build): Build directory (PDFs from LaTeX, DrawIO, Inkscape)
-- [doc](./doc): Documents related to the paper and submission
+**Documentation**
+
+- [doc](./doc): Documents related to the research and submission
+
+**Sources**
+
 - [etc](./etc): Configuration files (Make, LaTeX)
-- [examples](./examples): Reusable snippets of code
-- [modules](./modules): Git submodules ([mklatex](https://github.com/pierreay/mklatex))
-- [out](./out): Final output directory (after build, post-processed PDF of the document)
 - [src](./src): Sources of the paper (LaTeX, BibTeX, DrawIO, Inkscape)
+- [examples](./examples): Reusable snippets of code
+
+**Build**
+
+- [ext](./ext): External files (*e.g.*, some LaTeX class)
+- [modules](./modules): Git submodules (some LaTeX class and shared code)
+- [build](./build): Build directory (PDFs from LaTeX, DrawIO, Inkscape)
+- [out](./out): Final output directory (after build, post-processed PDF of the document)
 
 # CONTRIBUTING
 
