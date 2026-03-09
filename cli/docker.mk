@@ -65,6 +65,6 @@ help:
 	@echo -e "\tprintexport\t\tPrint exported mklatex-docker variables."
 	@echo -e ""
 	@echo -e "Variables:"
-	@echo -e "\tDOCKER_NAME:\t\t\tContainer to use. [ubuntu | archlinux] (default = $(DOCKER_NAME))"
+	@echo -e "\tDOCKER_NAME:\t\t\tContainer to use. [texlive | ubuntu | archlinux] (default = $(DOCKER_NAME))"
 	@echo -e "\tMKLATEX_DOCKER_BUILD_OPTS:\tAdditional options for Docker build."
 	@echo -e "\tMKLATEX_DOCKER_RUN_OPTS:\tAdditional options for Docker run."
