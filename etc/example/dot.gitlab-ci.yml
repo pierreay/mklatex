@@ -2,6 +2,9 @@
 #                           mklatex/.gitlab-ci.yml                             #
 ################################################################################
 
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 stages:
   - build
   - deploy
@@ -20,8 +23,7 @@ build-docker:
     - echo "Install Docker and Git..."
     - apt-get update
     - apt-get install -yq git docker.io docker-buildx
-    - echo "Fetch Dockerfile from mklatex and source environment..."
-    - git submodule update --init --recursive
+    - echo "Source environment..."
     - source .env
     - echo "Start building Docker image for mklatex..."
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -39,7 +41,6 @@ build-docker:
 #   script:
 #     # Mitigate `ERROR: Job failed: exit code 1` without apparent error.
 #     - set +o pipefail
-#     - git submodule update --init --recursive
 #     - source .env
 #     - mklatex drawio all
 #     - mklatex inkscape all
@@ -57,13 +58,14 @@ build-latex:
   script:
     # Mitigate `ERROR: Job failed: exit code 1` without apparent error.
     - set +o pipefail
-    - git submodule update --init --recursive
     - source .env
     # NOTE: Compile figures independently such that it will be parallel even on
     # Ubuntu.
     - mklatex drawio all
     - mklatex inkscape all
     - make all
+  after_script:
+    - cat build/tex/main.log
   artifacts:
     paths:
       - out/*.pdf
