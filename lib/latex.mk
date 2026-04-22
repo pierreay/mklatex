@@ -169,6 +169,7 @@ $(LATEX_BUILD_DIR):
 
 # %.tex -> %.pdf
 $(LATEX_BUILD_DIR)/%.pdf: $(LATEX_SRC_FILES) $(LATEX_ADDITIONAL_DEPS) | $(LATEX_BUILD_DIR) $(LATEX_ADDITIONAL_REQS)
+	mkdir -p $$(dirname $@)
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Build $@..."
 ifndef LATEX_ONESHOT
 	@echo -e "$(_COL_OK)[+] mklatex:$(_COL_RES) Run 1/3:"

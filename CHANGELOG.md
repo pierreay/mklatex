@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- `latex.mk`: Allows to have TeX source files used as `subfiles` inside subdirectories of the source directory (`src/tex`)
+
 ## [0.0.3] - 2026-04-10
 
 ### Added
