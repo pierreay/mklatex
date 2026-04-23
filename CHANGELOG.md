@@ -5,6 +5,7 @@
 ### Changed
 
 - `latex.mk`: Allows to have TeX source files used as `subfiles` inside subdirectories of the source directory (`src/tex`)
+- `inkscape.mk`: Allows to have Inkscape source files inside subdirectories of the source directory (`src/gfx/inkscape`)
 
 ## [0.0.3] - 2026-04-10
 

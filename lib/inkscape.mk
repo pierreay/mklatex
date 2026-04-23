@@ -38,7 +38,7 @@ $(INKSCAPE_BUILD_DIR):
 
 # Convert a SVG into a PDF or a set of PDFs (potentially with `.pdf_tex` sidecars).
 $(INKSCAPE_BUILD_DIR)/%.$(INKSCAPE_BUILD_FT): $(INKSCAPE_SRC_DIR)/%.svg $(INKSCAPE_SRC_DIR)/%.toml | $(INKSCAPE_BUILD_DIR)
-	scapex -o $(INKSCAPE_BUILD_DIR) $<
+	scapex -o $(dir $(patsubst $(INKSCAPE_SRC_DIR)/%,$(INKSCAPE_BUILD_DIR)/%,$<)) $<
 	touch $@
 
 # Generate a default configuration file.
