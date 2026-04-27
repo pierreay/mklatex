@@ -37,4 +37,5 @@ $(DRAWIO_BUILD_DIR):
 
 # .drawio -> .pdf
 $(DRAWIO_BUILD_DIR)/%.pdf: $(DRAWIO_SRC_DIR)/%.drawio | $(DRAWIO_BUILD_DIR)
+	mkdir -p $(dir $@)
 	$(DRAWIO_SCRIPT_PATH) $< $@
